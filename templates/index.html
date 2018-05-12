@@ -1,115 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<title>AQA Topics</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/font-mfizz.css') }}">
-<link rel="shortcut icon" href="{{ url_for('static', filename='images/icons/favicon.ico') }}">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
+   <title>AQA Topics</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/font-mfizz.css') }}">
+   <link rel="shortcut icon" href="{{ url_for('static', filename='images/icons/favicon.ico') }}">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <style>
       body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
       .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
       .fa-anchor,.fa-coffee {font-size:200px}
-
-
-
-
-</style>
-<body>
-<!-- Navbar -->
-<div class="w3-top">
-    <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
-        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
-           href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i
-                class="fa fa-bars"></i></a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white"><i class="fa fa-home"></i></a>
-        <div class="w3-dropdown-hover">
-            <button class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Dynamic content</button>
-            <div class="w3-dropdown-content w3-bar-block w3-card-4">
-                {% for link in header_topics %}
-                <a href="{{link['link']}}" target="_blank" class="w3-bar-item w3-button">{{link['title']}}</a>
-                {% endfor %}
+   </style>
+   <body>
+      <!-- Navbar -->
+      <div class="w3-top">
+         <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
+               href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i
+               class="fa fa-bars"></i></a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white"><i class="fa fa-home"></i></a>
+            <div class="w3-dropdown-hover">
+               <button class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Dynamic content</button>
+               <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                  {% for link in header_topics %}
+                  <a href="{{link['link']}}" target="_blank" class="w3-bar-item w3-button">{{link['title']}}</a>
+                  {% endfor %}
+               </div>
             </div>
-        </div>
-    </div>
-    <!-- Navbar on small screens -->
-    <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-        {% for link in header_topics %}
-        <a href="{{link['link']}}" target="_blank" class="w3-bar-item w3-button w3-padding-large">{{link['title']}}</a>
-        {% endfor %}
-    </div>
-</div>
-<!-- Header -->
-<header class="w3-container w3-teal w3-center" style="padding:128px 16px">
-    <h1 class="w3-margin w3-jumbo"><i class="fa fa-bug"></i> AQA TOPICS <i class="fa fa-bug"></i></h1>
-    <p class="w3-xlarge">Useful links to improve yourself</p>
-</header>
-{% for category in categories %}
-{% if category['id'] % 2 == 0 %}
-<!-- First type -->
-<div class="w3-row-padding w3-padding-64 w3-container">
-    <div class="w3-content">
-        <div class="w3-twothird">
+         </div>
+         <!-- Navbar on small screens -->
+         <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+            {% for link in header_topics %}
+            <a href="{{link['link']}}" target="_blank" class="w3-bar-item w3-button w3-padding-large">{{link['title']}}</a>
+            {% endfor %}
+         </div>
+      </div>
+      <!-- Header -->
+      <header class="w3-container w3-teal w3-center" style="padding:128px 16px">
+         <h1 class="w3-margin w3-jumbo"><i class="fa fa-bug"></i> AQA TOPICS <i class="fa fa-bug"></i></h1>
+         <p class="w3-xlarge">Useful links to improve yourself</p>
+      </header>
+      {% for category in categories %}
+      {% if category['id'] % 2 == 0 %}
+      <!-- First type -->
+      <div class="w3-row-padding w3-padding-64 w3-container">
+         <div class="w3-content">
+            <div class="w3-twothird">
+               <h1>{{category['title']}}</h1>
+               {% for topic in topics %}
+               {% if topic['category_id'] == category['id'] %}
+               <h5 class="w3-padding-5"><a href={{topic['link']}} target="_blank">{{topic['title']}}</a></h5>
+               {% endif %}
+               {% endfor %}
+            </div>
+            <div class="w3-third w3-center">
+               {% if category['title'] == 'Python' %}
+               <i class="icon-python w3-padding-32 w3-text-red" style="font-size: 100px"></i>
+               {% else %}
+               <i class="fa {{category['icon']}} w3-padding-32 w3-text-red" style="font-size: 100px"></i>
+               {% endif %}
+            </div>
+         </div>
+      </div>
+      {% else %}
+      <!-- Second type -->
+      <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+         <div class="w3-content">
+            <div class="w3-third w3-center">
+               <i class="fa {{category['icon']}} w3-padding-32 w3-text-red w3-margin-right" style="font-size: 100px"></i>
+            </div>
             <h1>{{category['title']}}</h1>
             {% for topic in topics %}
             {% if topic['category_id'] == category['id'] %}
             <h5 class="w3-padding-5"><a href={{topic['link']}} target="_blank">{{topic['title']}}</a></h5>
             {% endif %}
             {% endfor %}
-        </div>
-        <div class="w3-third w3-center">
-            {% if category['title'] == 'Python' %}
-            <i class="icon-python w3-padding-32 w3-text-red" style="font-size: 100px"></i>
-            {% else %}
-            <i class="fa {{category['icon']}} w3-padding-32 w3-text-red" style="font-size: 100px"></i>
-            {% endif %}
-        </div>
-    </div>
-</div>
-{% else %}
-<!-- Second type -->
-<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
-    <div class="w3-content">
-        <div class="w3-third w3-center">
-            <i class="fa {{category['icon']}} w3-padding-32 w3-text-red w3-margin-right" style="font-size: 100px"></i>
-        </div>
-        <h1>{{category['title']}}</h1>
-        {% for topic in topics %}
-        {% if topic['category_id'] == category['id'] %}
-        <h5 class="w3-padding-5"><a href={{topic['link']}} target="_blank">{{topic['title']}}</a></h5>
-        {% endif %}
-        {% endfor %}
-    </div>
-</div>
-</div>
-{% endif %}
-{% endfor %}
-<div class="w3-container w3-black w3-center w3-opacity w3-padding-16">
-    <h2> Wanna add new topic? </h2>
-    <div class="w3-container" style="max-width:500px; display: block; margin-left: auto; margin-right: auto;">
-        <form action="/add_topic" method="POST" class="w3-container">
-            <input class="w3-input" style="width=30px" type="text" name="Title" placeholder="Enter title" required>
-            <input class="w3-input" style="width=30px" type="text" name="URL" placeholder="Enter URL link" required>
-            <label>Choose category</label>
-            <select name="Categories" class="w3-select">
-                {% for category in list_categories %}
-                <option value="{{category['id']}}">{{category['title']}}</option>
-                {% endfor %}
-            </select>
-
-            <input class="w3-btn w3-orange" type="submit" style="margin:10px;">
-        </form>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer class="w3-container w3-padding-16 w3-center w3-opacity">
-    <p><a href="https://github.com/Goraved" target="_blank">Goraved 2018</a></p>
-</footer>
-<script>
+         </div>
+      </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+      <div class="w3-container w3-black w3-center w3-opacity w3-padding-16">
+         <h2> Wanna add new topic? </h2>
+         <div class="w3-container" style="max-width:500px; display: block; margin-left: auto; margin-right: auto;">
+            <form action="/add_topic" method="POST" class="w3-container">
+               <input class="w3-input" style="width=30px" type="text" name="Title" placeholder="Enter title" required>
+               <input class="w3-input" style="width=30px" type="text" name="URL" placeholder="Enter URL link" required>
+               <label>Choose category</label>
+               <select name="Categories" class="w3-select">
+                  {% for category in list_categories %}
+                  <option value="{{category['id']}}">{{category['title']}}</option>
+                  {% endfor %}
+               </select>
+               <input class="w3-btn w3-orange" type="submit" style="margin:10px;">
+            </form>
+         </div>
+      </div>
+      <!-- Footer -->
+      <footer class="w3-container w3-padding-16 w3-center w3-opacity">
+         <p><a href="https://github.com/Goraved" target="_blank">Goraved 2018</a></p>
+      </footer>
+      <script>
          // Used to toggle the menu on small screens when clicking on the menu button
          function myFunction() {
              var x = document.getElementById("navDemo");
@@ -120,6 +114,6 @@
              }
          }
 
-</script>
-</body>
+      </script>
+   </body>
 </html>

@@ -38,7 +38,7 @@
                         {% endfor %}
                     </select>
                 </td>
-                <td><input type="submit" value="Save changes"></td>
+                <td><button type="submit"><i class="fa fa-save fa-lg w3-text-green"></i></button></td>
                 <input type="hidden" name="id" value="{{topic['id']}}">
             </form>
             <td><a data-confirm="Are you sure?" data-method="delete" href="/delete_topic/{{topic['id']}}"

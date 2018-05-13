@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>God Mode</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
@@ -16,8 +17,8 @@
             <th>Title</th>
             <th>Link</th>
             <th>Category</th>
-            <th>Edit</th>
-            <th>Remove</th>
+            <th></th>
+            <th></th>
         </tr>
         {% for topic in topics %}
         <tr>
@@ -37,10 +38,11 @@
                         {% endfor %}
                     </select>
                 </td>
-                <td><input type="submit" value="Save"></td>
+                <td><input type="submit" value="Save changes"></td>
                 <input type="hidden" name="id" value="{{topic['id']}}">
             </form>
-            <td><a data-confirm="Are you sure?" data-method="delete" href="/delete_topic/{{topic['id']}}" rel="nofollow">Delete</a>
+            <td><a data-confirm="Are you sure?" data-method="delete" href="/delete_topic/{{topic['id']}}"
+                   rel="nofollow"><i class="fa fa-trash fa-lg w3-text-red"></i></a>
             </td>
         </tr>
         {% endfor %}

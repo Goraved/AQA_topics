@@ -1,5 +1,3 @@
-import time
-
 import MySQLdb
 
 
@@ -35,6 +33,15 @@ def get_header_topics():
     return topics
 
 
+# Topics
+def create_topic(title, link, category):
+    query('Insert into topics (category_id, title, link) values ({},"{}","{}")'.format(category, title, link))
+
+
+def update_topic(id, title, link, category):
+    query("Update topics set title='{}', link='{}', category_id={} where id = {}".format(title, link, category, id))
+
+
 def get_topics():
     topics = []
     cur = query("Select * from topics")
@@ -44,18 +51,11 @@ def get_topics():
     return topics
 
 
-def update_topic(id, title, link, category):
-    query("Update topics set title='{}', link='{}', category_id={} where id = {}".format(title, link, category, id))
-
-
 def remove_topic(id):
     query("Delete from topics where id = {}".format(id))
 
 
-def create_topic(title, link, category):
-    query('Insert into topics (category_id, title, link) values ({},"{}","{}")'.format(category, title, link))
-
-
+# Categories
 def get_categories(get_all):
     categories = []
     if get_all is True:
@@ -77,26 +77,13 @@ def get_categories_list():
     return categories
 
 
-def save_statistics(results):
-    # Get skill list
-    skills = {}
-    cur = query("Select * from skills")
-    for row in cur.fetchall():
-        skills.update({row[1]: row[0]})
-    # Get current date
-    date = time.strftime('%Y-%m-%d')
-    # Delete previous data by current date
-    cur = query("Delete from statistics where date_collected = '%s'" % date)
-    for result in results:
-        # Get skill id
-        skill_id = skills.get(result)
-        # Save statistic by skill
-        insert_query = "Insert into statistics (skill_id, skill_percent, date_collected) values (%s,'%s','%s');" % (
-            skill_id, results.get(result), date)
-        cur = query(insert_query)
-    cur.close()
-#
-#
-#
-# def close_db():
-#     db.close()
+def create_category(title):
+    query("Insert into categories (title) values ('{}')".format(title))
+
+
+def update_category(id, title):
+    query("Update categories set title='{}' where id = {}".format(title, id))
+
+
+def remove_category(id):
+    query("Delete from categories where id = {}".format(id))

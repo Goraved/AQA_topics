@@ -52,5 +52,26 @@ def add_topic():
     return redirect("/")
 
 
+@app.route('/edit_category', methods=['POST'])
+def edit_category():
+    title = request.form['Title']
+    id = request.form['id']
+    update_category(id, title)
+    return redirect("/god")
+
+
+@app.route('/delete_category/<category_id>')
+def delete_category(category_id):
+    remove_category(category_id)
+    return redirect("/god")
+
+
+@app.route('/add_category', methods=['POST'])
+def add_category():
+    title = request.form['Title']
+    create_category(title)
+    return redirect("/god")
+
+
 if __name__ == "__main__":
     app.run()

@@ -8,17 +8,22 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
+<div class="w3-top">
+    <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+        <a href="/" class="w3-bar-item w3-button w3-padding-large w3-white"><i class="fa fa-home"></i></a>
+    </div>
+</div>
+<div class="w3-container w3-padding-64">
+    <div class="w3-center">
+        <h2>Topics</h2>
+    </div>
 
-<div class="w3-container">
-    <h2>Topics</h2>
-
-    <table class="w3-table w3-striped">
-        <tr>
+    <table class="w3-table-all w3-centered">
+        <tr class="w3-orange">
             <th>Title</th>
             <th>Link</th>
             <th>Category</th>
-            <th></th>
-            <th></th>
+            <th colspan="2">Actions</th>
         </tr>
         {% for topic in topics %}
         <tr>
@@ -38,14 +43,76 @@
                         {% endfor %}
                     </select>
                 </td>
-                <td><button type="submit"><i class="fa fa-save fa-lg w3-text-green"></i></button></td>
+                <td>
+                    <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
+                            class="fa fa-save fa-lg w3-text-green"></i></button>
+                </td>
                 <input type="hidden" name="id" value="{{topic['id']}}">
             </form>
-            <td><a data-confirm="Are you sure?" data-method="delete" href="/delete_topic/{{topic['id']}}"
+            <td><a class="w3-button w3-medium w3-circle w3-black" data-confirm="Are you sure?" data-method="delete"
+                   href="/delete_topic/{{topic['id']}}"
                    rel="nofollow"><i class="fa fa-trash fa-lg w3-text-red"></i></a>
             </td>
         </tr>
         {% endfor %}
+        <tr class="w3-grey">
+            <form action="/add_topic" method="POST">
+                <td><input class="w3-input" type="text" name="Title" placeholder="Enter title" required></td>
+                <td><input class="w3-input" type="text" name="URL" placeholder="Enter URL link" required></td>
+                <td>
+                    <select name="Categories" class="w3-select">
+                        {% for category in list_categories %}
+                        <option value="{{category['id']}}">{{category['title']}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td colspan="2">
+                    <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
+                            class="fa fa-plus fa-lg w3-text-green"></i></button>
+                </td>
+            </form>
+        </tr>
+    </table>
+</div>
+
+
+<div class="w3-container w3-padding-64">
+    <div class="w3-center">
+        <h2>Categories</h2>
+    </div>
+
+    <table class="w3-table-all w3-centered">
+        <tr class="w3-teal">
+            <th>Title</th>
+            <th colspan="2">Actions</th>
+        </tr>
+        {% for category in categories %}
+        <tr>
+            <form action="/edit_category" method="POST">
+                <td><input class="w3-input" type="text" name="Title" placeholder="Enter title" required
+                           value="{{category['title']}}"></td>
+                <td>
+                    <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
+                            class="fa fa-save fa-lg w3-text-green"></i></button>
+                </td>
+                <input type="hidden" name="id" value="{{category['id']}}">
+            </form>
+            <td><a class="w3-button w3-medium w3-circle w3-black" data-confirm="Are you sure?" data-method="delete"
+                   href="/delete_category/{{category['id']}}"
+                   rel="nofollow"><i class="fa fa-trash fa-lg w3-text-red"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr class="w3-grey">
+            <form action="/add_category" method="POST">
+                <td><input class="w3-input" type="text" name="Title" placeholder="Enter title to create new category"
+                           required></td>
+                <td colspan="2">
+                    <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
+                            class="fa fa-plus fa-lg w3-text-green"></i></button>
+                </td>
+            </form>
+        </tr>
     </table>
 </div>
 

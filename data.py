@@ -39,18 +39,25 @@ def get_topics():
     topics = []
     cur = query("Select * from topics")
     for row in cur.fetchall():
-        topics.append({'category_id': row[1], 'title': row[2], 'link': row[3], 'comments': row[4]})
+        topics.append({'id': row[0], 'category_id': row[1], 'title': row[2], 'link': row[3], 'comments': row[4]})
     cur.close()
     return topics
+
+
+def update_topic(id, title, link, category):
+    query("Update topics set title='{}', link='{}', category_id={} where id = {}".format(title, link, category, id))
 
 
 def create_topic(title, link, category):
     query('Insert into topics (category_id, title, link) values ({},"{}","{}")'.format(category, title, link))
 
 
-def get_categories():
+def get_categories(get_all):
     categories = []
-    cur = query("Select * from categories where id <> 4")
+    if get_all is True:
+        cur = query("Select * from categories")
+    else:
+        cur = query("Select * from categories where id <> 4")
     for row in cur.fetchall():
         categories.append({'id': row[0], 'title': row[1], 'comments': row[2], 'icon': row[3]})
     cur.close()

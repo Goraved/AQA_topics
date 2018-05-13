@@ -12,15 +12,33 @@ app = Flask(__name__)
 def main():
     topics = get_topics()
     header_topics = get_header_topics()
-    categories = get_categories()
+    categories = get_categories(False)
     list_categories = get_categories_list()
     # build_html()
     return render_template('index.html', header_topics=header_topics, topics=topics, categories=categories,
                            list_categories=list_categories)
 
 
+@app.route("/god")
+def editor_mode():
+    topics = get_topics()
+    categories = get_categories(True)
+    list_categories = get_categories_list()
+    return render_template('god.html', topics=topics, categories=categories, list_categories=list_categories)
+
+
+@app.route('/edit_topic', methods=['POST'])
+def edit_topic():
+    title = request.form['Title']
+    link = request.form['URL']
+    category = request.form['Categories']
+    id = request.form['id']
+    update_topic(id, title, link, category)
+    return redirect("/god")
+
+
 @app.route('/add_topic', methods=['POST'])
-def my_form_post():
+def add_topic():
     title = request.form['Title']
     link = request.form['URL']
     category = request.form['Categories']

@@ -37,6 +37,12 @@ def edit_topic():
     return redirect("/god")
 
 
+@app.route('/delete_topic/<topic_id>')
+def delete_topic(topic_id):
+    remove_topic(topic_id)
+    return redirect("/god")
+
+
 @app.route('/add_topic', methods=['POST'])
 def add_topic():
     title = request.form['Title']

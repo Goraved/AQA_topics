@@ -40,7 +40,8 @@
                 <td><input type="submit" value="Save"></td>
                 <input type="hidden" name="id" value="{{topic['id']}}">
             </form>
-            <td>Remove</td>
+            <td><a data-confirm="Are you sure?" data-method="delete" href="/delete_topic/{{topic['id']}}" rel="nofollow">Delete</a>
+            </td>
         </tr>
         {% endfor %}
     </table>

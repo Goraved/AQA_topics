@@ -48,6 +48,10 @@ def update_topic(id, title, link, category):
     query("Update topics set title='{}', link='{}', category_id={} where id = {}".format(title, link, category, id))
 
 
+def remove_topic(id):
+    query("Delete from topics where id = {}".format(id))
+
+
 def create_topic(title, link, category):
     query('Insert into topics (category_id, title, link) values ({},"{}","{}")'.format(category, title, link))
 

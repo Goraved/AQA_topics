@@ -23,10 +23,10 @@
                class="fa fa-bars"></i></a>
             <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white"><i class="fa fa-home"></i></a>
             <div class="w3-dropdown-hover">
-               <button class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Dynamic content</button>
+               <button class="w3-button w3-hide-small w3-padding-large w3-hover-orange">Dynamic content</button>
                <div class="w3-dropdown-content w3-bar-block w3-card-4">
                   {% for link in header_topics %}
-                  <a href="{{link['link']}}" target="_blank" class="w3-bar-item w3-button">{{link['title']}}</a>
+                  <a href="{{link['link']}}" target="_blank" class="w3-bar-item w3-button w3-hover-orange">{{link['title']}}</a>
                   {% endfor %}
                </div>
             </div>
@@ -41,7 +41,7 @@
       <!-- Header -->
       <header class="w3-container w3-teal w3-center" style="padding:128px 16px">
          <h1 class="w3-margin w3-jumbo"><i class="fa fa-bug"></i> AQA TOPICS <i class="fa fa-bug"></i></h1>
-         <p class="w3-xlarge">Useful links to improve yourself</p>
+         <p class="w3-xlarge">Useful links to improve yourself Привіт</p>
       </header>
       {% for category in categories %}
       {% if category['id'] % 2 == 0 %}

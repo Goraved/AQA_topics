@@ -10,6 +10,7 @@
     <script src="static/js/main.js"></script>
 </head>
 <body>
+<iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
 <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-angle-double-up w3-large"></i></button>
 <div class="w3-top">
     <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
@@ -30,7 +31,7 @@
         </tr>
         {% for topic in topics %}
         <tr>
-            <form action="/edit_topic" method="POST">
+            <form action="/edit_topic" method="POST" target="dummyframe">
                 <td><input class="w3-input" type="text" name="Title" placeholder="Enter title" required
                            value="{{topic['title']}}"></td>
                 <td><input class="w3-input" type="text" name="URL" placeholder="Enter URL link" required
@@ -83,7 +84,7 @@
     <div class="w3-center">
         <h2>Categories</h2>
     </div>
-
+<div class="loader"></div>
     <table class="w3-table-all w3-centered">
         <tr class="w3-teal">
             <th>Title</th>
@@ -91,7 +92,7 @@
         </tr>
         {% for category in categories %}
         <tr>
-            <form action="/edit_category" method="POST">
+            <form action="/edit_category" method="POST" target="dummyframe">
                 <td><input class="w3-input" type="text" name="Title" placeholder="Enter title" required
                            value="{{category['title']}}"></td>
                 <td>

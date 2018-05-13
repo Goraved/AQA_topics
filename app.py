@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 
 from data import *
 
@@ -57,7 +57,7 @@ def edit_category():
     title = request.form['Title']
     id = request.form['id']
     update_category(id, title)
-    return redirect("/god")
+    return redirect(url_for('editor_mode'))
 
 
 @app.route('/delete_category/<category_id>')

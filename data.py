@@ -5,7 +5,7 @@ import MySQLdb
 
 def query(sql):
     db = MySQLdb.connect(user='aqatopics', password='Hw1gK!!v4hiP',
-                         host='den1.mysql5.gear.host',
+                         host='den1.mysql5.gear.host', charset='utf8',
                          database='aqatopics', connect_timeout=600)
     try:
         cursor = db.cursor()

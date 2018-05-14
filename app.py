@@ -1,30 +1,30 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+from random import randint
 
 from flask import Flask, render_template, request, redirect, url_for
 
 from data import *
 
 app = Flask(__name__)
+app.jinja_env.add_extension('jinja2.ext.loopcontrols')
+version = [{'id': randint(1, 100000000)}]
 
 
 @app.route("/")
 def main():
     topics = get_topics()
-    header_topics = get_header_topics()
-    categories = get_categories(False)
-    list_categories = get_categories_list()
+    categories = get_categories()
+    count_of_topic_in_cat(categories, topics)
     # build_html()
-    return render_template('index.html', header_topics=header_topics, topics=topics, categories=categories,
-                           list_categories=list_categories)
+    return render_template('index.html', topics=topics, categories=categories, versions=version)
 
 
 @app.route("/god")
 def editor_mode():
     topics = get_topics()
-    categories = get_categories(True)
-    list_categories = get_categories_list()
-    return render_template('god.html', topics=topics, categories=categories, list_categories=list_categories)
+    categories = get_categories()
+    return render_template('god.html', topics=topics, categories=categories)
 
 
 @app.route('/edit_topic', methods=['POST'])
@@ -56,7 +56,8 @@ def add_topic():
 def edit_category():
     title = request.form['Title']
     id = request.form['id']
-    update_category(id, title)
+    icon = request.form['Icon']
+    update_category(id, title, icon)
     return redirect(url_for('editor_mode'))
 
 

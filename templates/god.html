@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <script src="static/js/main.js"></script>
+    {% for version in versions %}
+    <script src="static/js/main.js?version={{version['id']}}"></script>
+    {% endfor %}
 </head>
 <body>
 <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
@@ -38,7 +40,7 @@
                            value="{{topic['link']}}"></td>
                 <td>
                     <select name="Categories" class="w3-select">
-                        {% for category in list_categories %}
+                        {% for category in categories %}
                         {% if category['id'] == topic['category_id'] %}
                         <option value="{{category['id']}}" selected>{{category['title']}}</option>
                         {% else %}
@@ -65,7 +67,7 @@
                 <td><input class="w3-input" type="text" name="URL" placeholder="Enter URL link" required></td>
                 <td>
                     <select name="Categories" class="w3-select">
-                        {% for category in list_categories %}
+                        {% for category in categories %}
                         <option value="{{category['id']}}">{{category['title']}}</option>
                         {% endfor %}
                     </select>
@@ -84,10 +86,11 @@
     <div class="w3-center">
         <h2>Categories</h2>
     </div>
-<div class="loader"></div>
+    <div class="loader"></div>
     <table class="w3-table-all w3-centered">
         <tr class="w3-teal">
             <th>Title</th>
+            <th>Icon</th>
             <th colspan="2">Actions</th>
         </tr>
         {% for category in categories %}
@@ -95,6 +98,8 @@
             <form action="/edit_category" method="POST" target="dummyframe">
                 <td><input class="w3-input" type="text" name="Title" placeholder="Enter title" required
                            value="{{category['title']}}"></td>
+                <td><input class="w3-input" type="text" name="Icon" placeholder="Enter icon class" required
+                           value="{{category['icon']}}" title="Use font-awesome or mfizz"></td>
                 <td>
                     <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
                             class="fa fa-save fa-lg w3-text-green"></i></button>
@@ -111,6 +116,8 @@
             <form action="/add_category" method="POST">
                 <td><input class="w3-input" type="text" name="Title" placeholder="Enter title to create new category"
                            required></td>
+                <td><input class="w3-input" type="text" name="Icon" placeholder="Enter icon class" required
+                           title="Use font-awesome or mfizz"></td>
                 <td colspan="2">
                     <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
                             class="fa fa-plus fa-lg w3-text-green"></i></button>

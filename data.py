@@ -24,15 +24,6 @@ def query(sql):
     return cursor
 
 
-def get_header_topics():
-    topics = []
-    cur = query("Select * from topics where category_id = 4")
-    for row in cur.fetchall():
-        topics.append({'category_id': row[1], 'title': row[2], 'link': row[3], 'comments': row[4]})
-    cur.close()
-    return topics
-
-
 # Topics
 def create_topic(title, link, category):
     query('Insert into topics (category_id, title, link) values ({},"{}","{}")'.format(category, title, link))
@@ -56,33 +47,35 @@ def remove_topic(id):
 
 
 # Categories
-def get_categories(get_all):
+def get_categories():
     categories = []
-    if get_all is True:
-        cur = query("Select * from categories")
-    else:
-        cur = query("Select * from categories where id <> 4")
+    cur = query("Select * from categories")
     for row in cur.fetchall():
         categories.append({'id': row[0], 'title': row[1], 'comments': row[2], 'icon': row[3]})
     cur.close()
     return categories
 
 
-def get_categories_list():
-    categories = []
-    cur = query("Select id, title from categories")
-    for row in cur.fetchall():
-        categories.append({'id': row[0], 'title': row[1]})
-    cur.close()
-    return categories
+def count_of_topic_in_cat(categories, topics):
+    index, item = 0, 0
+    for category in categories:
+        count = 0
+        for topic in topics:
+            if topic['category_id'] == category['id']:
+                count += 1
+        category['count'] = count
+        if category['id'] != 4 and category['count'] != 0:
+            category['index'] = index
+            index += 1
+        item += 1
 
 
 def create_category(title):
     query("Insert into categories (title) values ('{}')".format(title))
 
 
-def update_category(id, title):
-    query("Update categories set title='{}' where id = {}".format(title, id))
+def update_category(id, title, icon):
+    query("Update categories set title='{}', icon='{}' where id = {}".format(title, icon, id))
 
 
 def remove_category(id):

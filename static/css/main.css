@@ -18,6 +18,26 @@
     background-color: #555; /* Add a dark-grey background on hover */
 }
 
+#addBtn {
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 20px; /* Place the button at the bottom of the page */
+    left: 20px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: orange; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 20px; /* Increase font size */
+}
+
+#addBtn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+}
+
       body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
       .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
       .fa-anchor,.fa-coffee {font-size:200px}

@@ -24,14 +24,3 @@ function myFunction() {
         x.className = x.className.replace(" w3-show", "");
     }
 }
-            $.ajax({
-                type: "POST",
-                url: "{{ url_for('mod.edit_topic') }}",
-                data: dataString,
-                cache: false,
-                success: function(result){
-                    alert(result);
-                }
-           });
-
-}

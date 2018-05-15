@@ -1,5 +1,7 @@
-import MySQLdb
 import os
+
+import MySQLdb
+
 
 def query(sql):
     db = MySQLdb.connect(user=os.environ['DB_USER'], password=os.environ['DB_PASS'],
@@ -31,6 +33,15 @@ def create_topic(title, link, category):
 
 def update_topic(id, title, link, category):
     query("Update topics set title='{}', link='{}', category_id={} where id = {}".format(title, link, category, id))
+
+
+def get_user(username):
+    users = []
+    cur = query("select username, password from aqa where username like '{}'".format(username))
+    for row in cur.fetchall():
+        users.append({'username': row[0], 'pass': row[1]})
+    cur.close()
+    return users[0]
 
 
 def get_topics():

@@ -5,6 +5,7 @@ from random import randint
 from flask import Flask, render_template, request, redirect, url_for
 
 from data import *
+from verify import *
 
 app = Flask(__name__)
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
@@ -21,6 +22,7 @@ def main():
 
 
 @app.route("/god")
+@requires_auth
 def editor_mode():
     topics = get_topics()
     categories = get_categories()

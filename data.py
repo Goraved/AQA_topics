@@ -1,10 +1,10 @@
 import MySQLdb
-
+import os
 
 def query(sql):
-    db = MySQLdb.connect(user='aqatopics', password='Hw1gK!!v4hiP',
-                         host='den1.mysql5.gear.host', charset='utf8',
-                         database='aqatopics', connect_timeout=600)
+    db = MySQLdb.connect(user=os.environ['DB_USER'], password=os.environ['DB_PASS'],
+                         host=os.environ['DB_HOST'], charset='utf8',
+                         database=os.environ['DB'], connect_timeout=600)
     try:
         cursor = db.cursor()
         cursor.execute("""SET NAMES 'utf8';

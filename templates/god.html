@@ -34,9 +34,9 @@
         {% for topic in topics %}
         <tr>
             <form action="/edit_topic" method="POST" target="dummyframe">
-                <td><input class="w3-input" type="text" name="Title" placeholder="Enter title" required
+                <td><input class="w3-input" type="text" maxlength="200" name="Title" placeholder="Enter title" required
                            value="{{topic['title']}}"></td>
-                <td><input class="w3-input" type="text" name="URL" placeholder="Enter URL link" required
+                <td><input class="w3-input" type="text" maxlength="200" name="URL" placeholder="Enter URL link" required
                            value="{{topic['link']}}"></td>
                 <td>
                     <select name="Categories" class="w3-select">
@@ -63,8 +63,8 @@
         {% endfor %}
         <tr class="w3-grey">
             <form action="/add_topic" method="POST">
-                <td><input class="w3-input" type="text" name="Title" placeholder="Enter title" required></td>
-                <td><input class="w3-input" type="text" name="URL" placeholder="Enter URL link" required></td>
+                <td><input class="w3-input" type="text" maxlength="200" name="Title" placeholder="Enter title" required></td>
+                <td><input class="w3-input" type="text" maxlength="200" name="URL" placeholder="Enter URL link" required></td>
                 <td>
                     <select name="Categories" class="w3-select">
                         {% for category in categories %}
@@ -96,9 +96,9 @@
         {% for category in categories %}
         <tr>
             <form action="/edit_category" method="POST" target="dummyframe">
-                <td><input class="w3-input" type="text" name="Title" placeholder="Enter title" required
+                <td><input class="w3-input" type="text" maxlength="200" name="Title" placeholder="Enter title" required
                            value="{{category['title']}}"></td>
-                <td><input class="w3-input" type="text" name="Icon" placeholder="Enter icon class" required
+                <td><input class="w3-input" type="text" maxlength="200" name="Icon" placeholder="Enter icon class" required
                            value="{{category['icon']}}" title="Use font-awesome or mfizz"></td>
                 <td>
                     <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
@@ -114,9 +114,9 @@
         {% endfor %}
         <tr class="w3-grey">
             <form action="/add_category" method="POST">
-                <td><input class="w3-input" type="text" name="Title" placeholder="Enter title to create new category"
+                <td><input class="w3-input" type="text" maxlength="200" name="Title" placeholder="Enter title to create new category"
                            required></td>
-                <td><input class="w3-input" type="text" name="Icon" placeholder="Enter icon class" required
+                <td><input class="w3-input" type="text" maxlength="200" name="Icon" placeholder="Enter icon class" required
                            title="Use font-awesome or mfizz"></td>
                 <td colspan="2">
                     <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
@@ -125,6 +125,7 @@
             </form>
         </tr>
     </table>
+    <a href="/check_links" class="w3-button w3-medium w3-circle w3-black" type="submit">Check links</a>
 </div>
 
 </body>

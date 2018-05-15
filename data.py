@@ -28,11 +28,15 @@ def query(sql):
 
 # Topics
 def create_topic(title, link, category):
-    query('Insert into topics (category_id, title, link) values ({},"{}","{}")'.format(category, title, link))
+    query('Insert into topics (category_id, title, link) values ({},"{}","{}")'.format(category, reformat_text(title),
+                                                                                       reformat_text(link)))
 
 
-def update_topic(id, title, link, category):
-    query("Update topics set title='{}', link='{}', category_id={} where id = {}".format(title, link, category, id))
+def update_topic(id, title, link, category, **kwargs):
+    query(
+        "Update topics set title='{}', link='{}', category_id={} where id = {}".format(reformat_text(title),
+                                                                                       reformat_text(link), category,
+                                                                                       id))
 
 
 def get_user(username):
@@ -81,12 +85,16 @@ def count_of_topic_in_cat(categories, topics):
         item += 1
 
 
+def reformat_text(text):
+    return str(text).lstrip().rstrip().replace('<', '').replace('>', '')
+
+
 def create_category(title):
-    query("Insert into categories (title) values ('{}')".format(title))
+    query("Insert into categories (title) values ('{}')".format(reformat_text(title)))
 
 
 def update_category(id, title, icon):
-    query("Update categories set title='{}', icon='{}' where id = {}".format(title, icon, id))
+    query("Update categories set title='{}', icon='{}' where id = {}".format(reformat_text(title), icon, id))
 
 
 def remove_category(id):

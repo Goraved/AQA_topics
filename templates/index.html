@@ -101,8 +101,8 @@
     <h2> Wanna add new topic? </h2>
     <div class="w3-container" style="max-width:500px; display: block; margin-left: auto; margin-right: auto;">
         <form action="/add_topic" method="POST" class="w3-container">
-            <input class="w3-input" style="width=30px" type="text" name="Title" placeholder="Enter title" required>
-            <input class="w3-input" style="width=30px" type="text" name="URL" placeholder="Enter URL link" required>
+            <input class="w3-input" style="width=30px" type="text" maxlength="200" name="Title" placeholder="Enter title" required>
+            <input class="w3-input" style="width=30px" type="text" maxlength="200" name="URL" placeholder="Enter URL link" required>
             <label>Choose category</label>
             <select name="Categories" class="w3-select">
                 {% for category in categories %}

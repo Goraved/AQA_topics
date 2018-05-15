@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 from random import randint
 
-from flask import Flask, render_template, request, redirect, url_for
+import requests
+from flask import Flask, render_template, redirect, url_for
 
 from data import *
 from verify import *

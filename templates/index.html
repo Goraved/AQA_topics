@@ -3,6 +3,7 @@
 <title>AQA Topics</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/font-mfizz.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
@@ -10,6 +11,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {% for version in versions %}
 <script src="static/js/main.js?version={{version['id']}}"></script>
 {% endfor %}
@@ -21,8 +24,11 @@
         <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
            href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i
                 class="fa fa-bars"></i></a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white"><i class="fa fa-home"></i></a>
-        <button onclick="scrollWin()" class="w3-bar-item w3-green w3-large w3-button w3-padding-large  w3-hover-orange">
+        <a href="/" class="w3-bar-item w3-button w3-padding-large w3-white"><i class="fa fa-home"></i></a>
+        <button onclick="scrollWin()" class="w3-bar-item w3-hide-small w3-green w3-large w3-button w3-padding-large  w3-hover-orange">
+            <i class="fa fa-edit"></i>
+        </button>
+        <button onclick="scrollWin()" class="w3-bar-item w3-green w3-hide-large w3-large w3-button w3-padding-large">
             <i class="fa fa-edit"></i>
         </button>
         <div class="w3-dropdown-hover">
@@ -51,6 +57,14 @@
 </div>
 <!-- Header -->
 <header class="w3-container w3-teal w3-center" style="padding:128px 16px">
+    {% for message in messages %}
+    {% if message['text'] != '' %}
+    <div class="alert alert-warning alert-dismissible" style="margin-top:-50px;">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Warning!</strong> {{message['text']}}.
+    </div>
+    {% endif %}
+    {% endfor %}
     <h1 class="w3-margin w3-jumbo"><i class="fa fa-bug"></i> AQA TOPICS <i class="fa fa-bug"></i></h1>
     <p class="w3-xlarge">Useful links to improve yourself</p>
     <p class="w3-large">(Don't be shy and add an interesting topic)</p>
@@ -101,15 +115,18 @@
     <h2> Wanna add new topic? </h2>
     <div class="w3-container" style="max-width:500px; display: block; margin-left: auto; margin-right: auto;">
         <form action="/add_topic" method="POST" class="w3-container">
-            <input class="w3-input" style="width=30px" type="text" maxlength="200" name="Title" placeholder="Enter title" required>
-            <input class="w3-input" style="width=30px" type="text" maxlength="200" name="URL" placeholder="Enter URL link" required>
+            <input class="w3-input" style="width=30px; color:black" type="text" maxlength="200" name="Title"
+                   placeholder="Enter title" required>
+            <input class="w3-input" style="width=30px; color:black" type="text" maxlength="200" name="URL"
+                   placeholder="Enter URL link" required>
             <label>Choose category</label>
-            <select name="Categories" class="w3-select">
+            <select name="Categories" class="w3-select" style="color:black">
                 {% for category in categories %}
-                <option value="{{category['id']}}">{{category['title']}}</option>
+                <option value="{{category['id']}}" style="color:black">{{category['title']}}</option>
                 {% endfor %}
             </select>
-            <p>If you wanna add a new category, you can <a href="mailto:roman.pobotin@gmail.com?subject=Category propose" target="_blank">contact me</a>.</p>
+            <p>If you wanna add a new category, you can <a
+                    href="mailto:roman.pobotin@gmail.com?subject=Category propose" target="_blank">contact me</a>.</p>
             <input class="w3-btn w3-orange" type="submit" style="margin:10px;">
         </form>
     </div>

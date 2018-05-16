@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 from random import randint
 
-import requests
 from flask import Flask, render_template, redirect, url_for
 
 from data import *
@@ -15,11 +14,16 @@ version = [{'id': randint(1, 100000000)}]
 
 @app.route("/")
 def main():
+    try:
+        messages = [{'text': request.args['messages']}]
+    except KeyError:
+        messages = [{'text': ''}]
     topics = get_topics()
     categories = get_categories()
     count_of_topic_in_cat(categories, topics)
     # build_html()
-    return render_template('index.html', topics=topics, categories=categories, versions=version)
+    return render_template('index.html', topics=topics, categories=categories, versions=version,
+                           messages=messages)
 
 
 @app.route("/god")
@@ -51,8 +55,8 @@ def add_topic():
     title = request.form['Title']
     link = request.form['URL']
     category = request.form['Categories']
-    create_topic(title, link, category)
-    return redirect("/")
+    status = create_topic(title, link, category)
+    return redirect(url_for('.main', messages=status))
 
 
 @app.route('/edit_category', methods=['POST'])

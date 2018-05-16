@@ -1,6 +1,7 @@
 import os
 
 import MySQLdb
+import requests
 
 
 def query(sql):
@@ -28,8 +29,22 @@ def query(sql):
 
 # Topics
 def create_topic(title, link, category):
-    query('Insert into topics (category_id, title, link) values ({},"{}","{}")'.format(category, reformat_text(title),
-                                                                                       reformat_text(link)))
+    topics = get_topics()
+    for topic in topics:
+        if title != topic['title'] and link != topic['link']:
+            continue
+        else:
+            return 'Topic already added with title "{}"'.format(topic['title'])
+    try:
+        response = requests.get(link)
+    except:
+        return 'Bad url'
+    if response.status_code == 200:
+        query(
+            'Insert into topics (category_id, title, link) values ({},"{}","{}")'.format(category, reformat_text(title),
+                                                                                         reformat_text(link)))
+    else:
+        return 'Link "{}" is broken'.format(link)
 
 
 def update_topic(id, title, link, category, **kwargs):

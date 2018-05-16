@@ -6,7 +6,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/font-mfizz.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% for version in versions %}
+<link rel="stylesheet" href="static/css/main.css?version={{version['id']}}">
+{% endfor %}
 <link rel="shortcut icon" href="{{ url_for('static', filename='images/icons/favicon.ico') }}">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">

@@ -20,20 +20,21 @@
 {% endfor %}
 <body>
 <!-- Navbar -->
-<button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-angle-double-up w3-large"></i></button>
+
 <div class="w3-top">
+    <a href="#top" id="myBtn" title="Go to top"><i class="fa fa-angle-double-up w3-large"></i></a>
     <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
         <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
            href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i
                 class="fa fa-bars"></i></a>
         <a href="/" class="w3-bar-item w3-button w3-padding-large w3-white"><i class="fa fa-home"></i></a>
-        <button onclick="scrollWin()"
-                class="w3-bar-item w3-hide-small w3-green w3-large w3-button w3-padding-large  w3-hover-orange">
+        <a href="#create"
+           class="w3-bar-item w3-hide-small w3-green w3-large w3-button w3-padding-large  w3-hover-orange">
             <i class="fa fa-edit"></i>
-        </button>
-        <button onclick="scrollWin()" class="w3-bar-item w3-green w3-hide-large w3-large w3-button w3-padding-large">
+        </a>
+        <a href="#create" class="w3-bar-item w3-green w3-hide-large w3-large w3-button w3-padding-large">
             <i class="fa fa-edit"></i>
-        </button>
+        </a>
         <div class="w3-dropdown-hover">
             <button class="w3-button w3-hide-small w3-padding-large w3-hover-orange">Dynamic content</button>
             <div class="w3-dropdown-content w3-bar-block w3-card-4">
@@ -45,7 +46,21 @@
             </div>
         </div>
         <a href="https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit"
-           class="w3-bar-item w3-hide-small w3-button w3-padding-large  w3-hover-orange" target="_blank">AQA Tasks</a>
+           class="w3-bar-item w3-hide-small w3-button w3-padding-large  w3-hover-orange" target="_blank">AQA
+            Tasks</a>
+        <!-- Search -->
+        <!--
+        <form action="/search" method="POST" class="w3-hide-small">
+            <input class="w3-bar-item w3-input w3-right w3-hide-small  w3-large w3-padding-large w3-animate-input"
+                   placeholder="Search.." style="width: 18%; max-width: 39%;" type="text" required name="Search">
+            <input type="submit" style="display:none;">
+        </form>
+        <form action="/search" method="POST" class="w3-hide-large">
+            <input class="w3-bar-item w3-input w3-right w3-hide-large  w3-large w3-padding-large"
+                   placeholder="Search.." style="width: 39%;" type="text" required name="Search">
+            <input type="submit" style="display:none;">
+        </form>
+        -->
     </div>
     <!-- Navbar on small screens -->
     <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
@@ -59,7 +74,7 @@
     </div>
 </div>
 <!-- Header -->
-<header class="w3-container w3-teal w3-center" style="padding:128px 16px">
+<header id="top" class="w3-container w3-teal w3-center" style="padding:128px 16px">
     {% for message in messages %}
     {% if message['text'] != '' %}
     <div class="alert alert-warning alert-dismissible" style="margin-top:-50px;">
@@ -123,7 +138,8 @@
 {% endfor %}
 <div class="w3-container w3-black w3-center w3-opacity w3-padding-16">
     <h2> Wanna add new topic? </h2>
-    <div class="w3-container" style="max-width:500px; display: block; margin-left: auto; margin-right: auto;">
+    <div id="create" class="w3-container"
+         style="max-width:500px; display: block; margin-left: auto; margin-right: auto;">
         <form action="/add_topic" method="POST" class="w3-container">
             <input class="w3-input" style="width=30px; color:black" type="text" maxlength="200" name="Title"
                    placeholder="Enter title" required>

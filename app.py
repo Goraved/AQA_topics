@@ -34,6 +34,12 @@ def editor_mode():
     return render_template('god.html', topics=topics, categories=categories)
 
 
+@app.route('/search', methods=['POST'])
+def search():
+    search = request.form['Search']
+    return redirect("/search_results")
+
+
 @app.route('/edit_topic', methods=['POST'])
 def edit_topic():
     title = request.form['Title']

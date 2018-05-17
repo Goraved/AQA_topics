@@ -36,7 +36,15 @@ def create_topic(title, link, category):
         else:
             return 'Topic already added with title "{}"'.format(topic['title'])
     try:
-        response = requests.get(link)
+        if 'dou' in link:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36 OPR/50.0.2762.67',
+                'Referer': 'https://jobs.dou.ua/vacancies/?city=%D0%9A%D0%B8%D0%B5%D0%B2&category=QA',
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+            response = requests.get(link, headers=headers)
+        else:
+            response = requests.get(link)
     except:
         return 'Bad url'
     if response.status_code == 200:

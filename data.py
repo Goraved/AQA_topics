@@ -47,11 +47,23 @@ def create_topic(title, link, category):
         return 'Link "{}" is broken'.format(link)
 
 
-def update_topic(id, title, link, category, **kwargs):
+def update_topic(id, title, link, category):
     query(
         "Update topics set title='{}', link='{}', category_id={} where id = {}".format(reformat_text(title),
                                                                                        reformat_text(link), category,
                                                                                        id))
+
+
+def search_topics(search_request):
+    topics = []
+    cur = query("""select t.title, t.link, c.title from topics as t
+join categories as c on t.category_id = c.id
+where t.title like '% {}%'
+order by c.id, t.title""".format(search_request))
+    for row in cur.fetchall():
+        topics.append({'topic': row[0], 'link': row[1], 'category': row[2]})
+    cur.close()
+    return topics
 
 
 def get_user(username):

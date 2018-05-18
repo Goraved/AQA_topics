@@ -1,4 +1,5 @@
 import os
+from datetime import date, timedelta
 
 import MySQLdb
 import requests
@@ -39,7 +40,7 @@ def create_topic(title, link, category):
         if 'dou' in link:
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36 OPR/50.0.2762.67',
-                'Referer': 'https://jobs.dou.ua/vacancies/?city=%D0%9A%D0%B8%D0%B5%D0%B2&category=QA',
+                'Referer': 'https://dou.ua',
                 'X-Requested-With': 'XMLHttpRequest'
             }
             response = requests.get(link, headers=headers)
@@ -49,8 +50,12 @@ def create_topic(title, link, category):
         return 'Bad url'
     if response.status_code == 200:
         query(
-            'Insert into topics (category_id, title, link) values ({},"{}","{}")'.format(category, reformat_text(title),
-                                                                                         reformat_text(link)))
+            'Insert into topics (category_id, title, link, added_date) values ({},"{}","{}","{}")'.format(category,
+                                                                                                          reformat_text(
+                                                                                                              title),
+                                                                                                          reformat_text(
+                                                                                                              link),
+                                                                                                          date.today()))
     else:
         return 'Link "{}" is broken'.format(link)
 
@@ -85,9 +90,11 @@ def get_user(username):
 
 def get_topics():
     topics = []
-    cur = query("Select * from topics")
+    cur = query("Select * from topics order by category_id, id DESC")
     for row in cur.fetchall():
-        topics.append({'id': row[0], 'category_id': row[1], 'title': row[2], 'link': row[3], 'comments': row[4]})
+        topics.append(
+            {'id': row[0], 'category_id': row[1], 'title': row[2], 'link': row[3], 'comments': row[4], 'date': row[6],
+             'new': check_if_topic_is_new(row[6])})
     cur.close()
     return topics
 
@@ -134,3 +141,7 @@ def update_category(id, title, icon):
 
 def remove_category(id):
     query("Delete from categories where id = {}".format(id))
+
+
+def check_if_topic_is_new(topic_date):
+    return date.today() - topic_date < timedelta(days=7)

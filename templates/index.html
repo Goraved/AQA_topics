@@ -22,7 +22,7 @@
 <!-- Navbar -->
 
 <div class="w3-top">
-    <a href="#top" id="myBtn" title="Go to top"><i class="fa fa-angle-double-up w3-large"></i></a>
+    <a href="#top" id="scrollBtn" title="Go to top"><i class="fa fa-angle-double-up w3-large"></i></a>
     <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
         <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
            href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i
@@ -86,6 +86,61 @@
     <h1 class="w3-margin w3-jumbo"><i class="fa fa-bug"></i> AQA TOPICS <i class="fa fa-bug"></i></h1>
     <h2 class="w3-xlarge">Useful links to improve yourself</h2>
     <h2 class="w3-large">(Don't be shy and add an interesting topic)</h2>
+    <div class='container'>
+        <button id="myBtn" class='pulse-button w3-padding-16'>Latest</button>
+    </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Topics added by last 7 days</h2>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    {% for topic in topics %}
+                    {% if topic['new'] == True %}
+                    <li class="w3-padding-5"><a
+                            class="w3-large" href={{topic['link']}} target="_blank">{{topic['title']}}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+    </script>
 </header>
 {% for category in categories %}
 {% if category['id'] == 4 %}

@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <title>AQA Topics</title>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119547534-1"></script>
+    <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119547534-1');
+
+
+    </script>
+</head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -30,12 +43,14 @@
         <a href="/" class="w3-bar-item w3-button w3-padding-large w3-white"><i class="fa fa-home"></i></a>
         {% for request in requests %}
         <form action="/search" method="POST" class="w3-hide-small">
-            <input value="{{request['text']}}" class="w3-bar-item w3-input w3-right w3-hide-small  w3-large w3-padding-large w3-animate-input"
+            <input value="{{request['text']}}"
+                   class="w3-bar-item w3-input w3-right w3-hide-small  w3-large w3-padding-large w3-animate-input"
                    placeholder="Search.." style="width: 18%; max-width: 39%;" type="text" required name="Search">
             <input type="submit" style="display:none;">
         </form>
         <form action="/search" method="POST" class="w3-hide-large">
-            <input value="{{request['text']}}" class="w3-bar-item w3-input w3-right w3-hide-large  w3-large w3-padding-large"
+            <input value="{{request['text']}}"
+                   class="w3-bar-item w3-input w3-right w3-hide-large  w3-large w3-padding-large"
                    placeholder="Search.." style="width: 59%;" type="text" required name="Search">
             <input type="submit" style="display:none;">
         </form>
@@ -45,7 +60,7 @@
 </div>
 <!-- Header -->
 <div id="top" class="w3-container w3-teal w3-center" style="padding:128px 16px">
-<h1 class="w3-margin w3-jumbo"><i class="fa fa-bug"></i></h1>
+    <h1 class="w3-margin w3-jumbo"><i class="fa fa-bug"></i></h1>
 
     <div class="w3-row-padding w3-padding-32 w3-container">
         <div class="w3-content">

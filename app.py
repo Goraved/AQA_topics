@@ -34,9 +34,9 @@ def editor_mode():
     return render_template('god.html', topics=topics, categories=categories)
 
 
-@app.route('/search', methods=['POST'])
+@app.route('/search', methods=['GET'])
 def search():
-    search_request = reformat_text(request.form['Search'])
+    search_request = reformat_text(request.args['search'])
     search_results = search_topics(search_request)
     return render_template("search_results.html", results=search_results,
                            requests=[{'text': search_request, 'count': len(search_results)}], versions=version)

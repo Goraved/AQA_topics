@@ -74,7 +74,7 @@
     </div>
 </div>
 <!-- Header -->
-<header id="top" class="w3-container w3-teal w3-center" style="padding:128px 16px">
+<header id="top" class="w3-container w3-teal w3-center" style="padding-top:128px; padding-bottom:16px;">
     {% for message in messages %}
     {% if message['text'] != '' %}
     <div class="alert alert-warning alert-dismissible" style="margin-top:-50px;">
@@ -86,8 +86,8 @@
     <h1 class="w3-margin w3-jumbo"><i class="fa fa-bug"></i> AQA TOPICS <i class="fa fa-bug"></i></h1>
     <h2 class="w3-xlarge">Useful links to improve yourself</h2>
     <h2 class="w3-large">(Don't be shy and add an interesting topic)</h2>
-    <div class='container'>
-        <button id="myBtn" class='pulse-button w3-padding-16'>Latest</button>
+    <div class='container w3-padding-32'>
+        <button id="myBtn" class='pulse-button'>Latest</button>
     </div>
     <!-- The Modal -->
     <div id="myModal" class="modal">

@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <title>AQA Topics</title>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119547534-1"></script>
+    <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119547534-1');
+
+    </script>
+</head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -24,7 +36,8 @@
 <div class="w3-top">
     <a href="#top" id="scrollBtn" title="Go to top"><i class="fa fa-angle-double-up w3-large"></i></a>
     <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
-        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
+        <a id="toogle"
+           class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
            href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i
                 class="fa fa-bars"></i></a>
         <a href="/" class="w3-bar-item w3-button w3-padding-large w3-white"><i class="fa fa-home"></i></a>
@@ -112,35 +125,6 @@
         </div>
 
     </div>
-    <script>
-// Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
-
-    </script>
 </header>
 {% for category in categories %}
 {% if category['id'] == 4 %}
@@ -196,12 +180,14 @@ window.onclick = function(event) {
     <div id="create" class="w3-container"
          style="max-width:500px; display: block; margin-left: auto; margin-right: auto;">
         <form action="/add_topic" method="POST" class="w3-container">
-            <input class="w3-input" style="width=30px; color:black" type="text" maxlength="200" name="Title"
+            <input class="w3-input w3-margin-bottom" style="width=30px; color:black" type="text" maxlength="200"
+                   name="Title"
                    placeholder="Enter title" required>
-            <input class="w3-input" style="width=30px; color:black" type="text" maxlength="200" name="URL"
+            <input class="w3-input w3-margin-bottom" style="width=30px; color:black" type="text" maxlength="200"
+                   name="URL"
                    placeholder="Enter URL link" required>
             <label>Choose category</label>
-            <select name="Categories" class="w3-select" style="color:black">
+            <select name="Categories" class="w3-select w3-margin-bottom" style="color:black">
                 {% for category in categories %}
                 <option value="{{category['id']}}" style="color:black">{{category['title']}}</option>
                 {% endfor %}

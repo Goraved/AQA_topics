@@ -49,9 +49,8 @@ $('a[href*="#"]')
       }
     }
   });
-  });
 
-
+  // Get the modal
 var modal = document.getElementById('myModal');
 
 // Get the button that opens the modal
@@ -76,3 +75,13 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+$('#toogle').click(function(event){
+    event.stopPropagation();
+});
+
+$(window).click(function() {
+    var x = document.getElementById("navDemo");
+    x.className = x.className.replace(" w3-show", "");
+});
+  });

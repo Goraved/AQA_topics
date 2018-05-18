@@ -36,7 +36,7 @@ def editor_mode():
 
 @app.route('/search', methods=['POST'])
 def search():
-    search_request = request.form['Search']
+    search_request = reformat_text(request.form['Search'])
     search_results = search_topics(search_request)
     return render_template("search_results.html", results=search_results,
                            requests=[{'text': search_request, 'count': len(search_results)}], versions=version)

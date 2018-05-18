@@ -71,8 +71,8 @@ def search_topics(search_request):
     topics = []
     cur = query("""select t.title, t.link, c.title from topics as t
 join categories as c on t.category_id = c.id
-where t.title like '% {}%'
-order by c.id, t.title""".format(search_request))
+where t.title like '% {}%' or t.title like '{}%'
+order by c.id, t.title""".format(search_request, search_request))
     for row in cur.fetchall():
         topics.append({'topic': row[0], 'link': row[1], 'category': row[2]})
     cur.close()

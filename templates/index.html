@@ -11,12 +11,21 @@
 
   gtag('config', 'UA-119547534-1');
 
+var trackOutboundLink = function(url) {
+   ga('send', 'event', 'outbound', 'click', url, {
+     'transport': 'beacon',
+     'hitCallback': function(){document.location = url;}
+   });
+}
+
+
     </script>
 </head>
-<meta name="description" content="Become a better automation quality assurance engineer right now!" />
-<meta property="og:title" content="AQA Topics" />
-<meta property="og:description" content="Become a better automation quality assurance engineer right now!" />
-<meta property="og:image" content="http://worldnews.easybranches.com/uploads/news/2017/11/why-marketing-automation-is-the-future-of-digital-for-brands.jpg" />
+<meta name="description" content="Become a better automation quality assurance engineer right now!"/>
+<meta property="og:title" content="AQA Topics"/>
+<meta property="og:description" content="Become a better automation quality assurance engineer right now!"/>
+<meta property="og:image"
+      content="http://worldnews.easybranches.com/uploads/news/2017/11/why-marketing-automation-is-the-future-of-digital-for-brands.jpg"/>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -57,12 +66,12 @@
             <div class="w3-dropdown-content w3-bar-block w3-card-4">
                 {% for link in topics %}
                 {% if link['category_id'] == 4 %}
-                <a href="{{link['link']}}" target="_blank" class="w3-bar-item w3-button w3-hover-orange">{{link['title']}}</a>
+                <a onclick="trackOutboundLink('{{link['link']}}')" href="{{link['link']}}" target="_blank" class="w3-bar-item w3-button w3-hover-orange">{{link['title']}}</a>
                 {% endif %}
                 {% endfor %}
             </div>
         </div>
-        <a href="https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit"
+        <a onclick="trackOutboundLink('https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit')"  href="https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit"
            class="w3-bar-item w3-hide-small w3-button w3-padding-large  w3-hover-orange" target="_blank">AQA
             Tasks</a>
         <!-- Search -->
@@ -83,10 +92,10 @@
     <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
         {% for link in topics %}
         {% if link['category_id'] == 4 %}
-        <a href="{{link['link']}}" target="_blank" class="w3-bar-item w3-button w3-padding-large">{{link['title']}}</a>
+        <a onclick="trackOutboundLink('{{link['link']}}')" href="{{link['link']}}" target="_blank" class="w3-bar-item w3-button w3-padding-large">{{link['title']}}</a>
         {% endif %}
         {% endfor %}
-        <a href="https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit" target="_blank"
+        <a onclick="trackOutboundLink('https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit')" href="https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit" target="_blank"
            class="w3-bar-item w3-button w3-padding-large">AQA Tasks</a>
     </div>
 </div>
@@ -119,7 +128,7 @@
                 <ul>
                     {% for topic in topics %}
                     {% if topic['new'] == True %}
-                    <li class="w3-padding-5"><a
+                    <li class="w3-padding-5"><a onclick="trackOutboundLink('{{topic['link']}}')"
                             class="w3-large" href={{topic['link']}} target="_blank">{{topic['title']}}</a>
                     </li>
                     {% endif %}
@@ -146,8 +155,9 @@
             <ul>
                 {% for topic in topics %}
                 {% if topic['category_id'] == category['id'] %}
-                <li class="w3-padding-5"><a
-                        class="w3-large" href={{topic['link']}} target="_blank">{{topic['title']}}</a>
+                <li class="w3-padding-5"><a onclick="trackOutboundLink('{{topic['link']}}')"
+                                            class="w3-large" href={{topic['link']}}
+                                            target="_blank">{{topic['title']}}</a>
                 </li>
                 {% endif %}
                 {% endfor %}
@@ -169,7 +179,8 @@
         <ul>
             {% for topic in topics %}
             {% if topic['category_id'] == category['id'] %}
-            <li class="w3-padding-5"><a class="w3-padding-16 w3-large" href={{topic['link']}} target="_blank">{{topic['title']}}</a>
+            <li class="w3-padding-5"><a onclick="trackOutboundLink('{{topic['link']}}')" class="w3-padding-16 w3-large"
+                                        href={{topic['link']}} target="_blank">{{topic['title']}}</a>
             </li>
             {% endif %}
             {% endfor %}

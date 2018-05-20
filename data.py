@@ -90,11 +90,13 @@ def get_user(username):
 
 def get_topics():
     topics = []
-    cur = query("Select * from topics order by category_id, id DESC")
+    cur = query("""Select t.id, t.category_id, t.title, t.link, t.comments, t.added_date, c.title  from topics as t
+JOIN categories as c on t.category_id = c.id
+ order by category_id, id DESC""")
     for row in cur.fetchall():
         topics.append(
-            {'id': row[0], 'category_id': row[1], 'title': row[2], 'link': row[3], 'comments': row[4], 'date': row[6],
-             'new': check_if_topic_is_new(row[6])})
+            {'id': row[0], 'category_id': row[1], 'title': row[2], 'link': row[3], 'comments': row[4], 'date': row[5],
+             'new': check_if_topic_is_new(row[5]), 'category': row[6]})
     cur.close()
     return topics
 

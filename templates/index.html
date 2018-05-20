@@ -126,7 +126,7 @@ var trackOutboundLink = function(url) {
                     {% for topic in topics %}
                     {% if topic['new'] == True %}
                     <li class="w3-padding-5"><a onclick="trackOutboundLink('{{topic['link']}}')"
-                            class="w3-large" href={{topic['link']}} target="_blank">{{topic['title']}}</a>
+                                                class="w3-large" href={{topic['link']}} target="_blank"><span style="color:grey;">[{{topic['category']}}]</span> {{topic['title']}}</a>
                     </li>
                     {% endif %}
                     {% endfor %}

@@ -16,7 +16,8 @@ var trackOutboundLink = function(url) {
      'transport': 'beacon',
      'hitCallback': function(){document.location = url;}
    });
-}</script>
+}
+    </script>
 </head>
 <meta name="description" content="Become a better automation quality assurance engineer right now!"/>
 <meta property="og:title" content="AQA Topics"/>
@@ -52,10 +53,7 @@ var trackOutboundLink = function(url) {
                 class="fa fa-bars"></i></a>
         <a href="/" class="w3-bar-item w3-button w3-padding-large w3-white"><i class="fa fa-home"></i></a>
         <a href="#create"
-           class="w3-bar-item w3-hide-small w3-green w3-large w3-button w3-padding-large  w3-hover-orange">
-            <i class="fa fa-edit"></i>
-        </a>
-        <a href="#create" class="w3-bar-item w3-green w3-hide-large w3-large w3-button w3-padding-large">
+           class="w3-bar-item w3-green w3-large w3-button w3-padding-large  w3-hover-orange">
             <i class="fa fa-edit"></i>
         </a>
         <div class="w3-dropdown-hover">
@@ -63,12 +61,14 @@ var trackOutboundLink = function(url) {
             <div class="w3-dropdown-content w3-bar-block w3-card-4">
                 {% for link in topics %}
                 {% if link['category_id'] == 4 %}
-                <a onclick="trackOutboundLink('{{link['link']}}')" href="{{link['link']}}" target="_blank" class="w3-bar-item w3-button w3-hover-orange">{{link['title']}}</a>
+                <a onclick="trackOutboundLink('{{link['link']}}')" href="{{link['link']}}" target="_blank"
+                   class="w3-bar-item w3-button w3-hover-orange">{{link['title']}}</a>
                 {% endif %}
                 {% endfor %}
             </div>
         </div>
-        <a onclick="trackOutboundLink('https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit')"  href="https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit"
+        <a onclick="trackOutboundLink('https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit')"
+           href="https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit"
            class="w3-bar-item w3-hide-small w3-button w3-padding-large  w3-hover-orange" target="_blank">AQA
             Tasks</a>
         <!-- Search -->
@@ -78,7 +78,7 @@ var trackOutboundLink = function(url) {
                    placeholder="Search.." style="width: 18%; max-width: 39%;" type="text" required name="search">
             <input type="submit" style="display:none;">
         </form>
-        <form action="/search" method="GET" class="w3-hide-large">
+        <form action="/search" method="GET" class="w3-hide w3-hide-large">
             <input class="w3-bar-item w3-input w3-right w3-hide-large  w3-large w3-padding-large"
                    placeholder="Search.." style="width: 39%;" type="text" required name="search">
             <input type="submit" style="display:none;">
@@ -89,10 +89,12 @@ var trackOutboundLink = function(url) {
     <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
         {% for link in topics %}
         {% if link['category_id'] == 4 %}
-        <a onclick="trackOutboundLink('{{link['link']}}')" href="{{link['link']}}" target="_blank" class="w3-bar-item w3-button w3-padding-large">{{link['title']}}</a>
+        <a onclick="trackOutboundLink('{{link['link']}}')" href="{{link['link']}}" target="_blank"
+           class="w3-bar-item w3-button w3-padding-large">{{link['title']}}</a>
         {% endif %}
         {% endfor %}
-        <a onclick="trackOutboundLink('https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit')" href="https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit" target="_blank"
+        <a onclick="trackOutboundLink('https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit')"
+           href="https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit" target="_blank"
            class="w3-bar-item w3-button w3-padding-large">AQA Tasks</a>
     </div>
 </div>
@@ -126,7 +128,8 @@ var trackOutboundLink = function(url) {
                     {% for topic in topics %}
                     {% if topic['new'] == True %}
                     <li class="w3-padding-5"><a onclick="trackOutboundLink('{{topic['link']}}')"
-                                                class="w3-large" href={{topic['link']}} target="_blank"><span style="color:grey;">[{{topic['category']}}]</span> {{topic['title']}}</a>
+                                                class="w3-large" href={{topic['link']}} target="_blank"><span
+                            style="color:grey;">[{{topic['category']}}]</span> {{topic['title']}}</a>
                     </li>
                     {% endif %}
                     {% endfor %}

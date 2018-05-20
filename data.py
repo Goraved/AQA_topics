@@ -50,14 +50,13 @@ def create_topic(title, link, category):
         return 'Bad url'
     if response.status_code == 200:
         query(
-            'Insert into topics (category_id, title, link, added_date) values ({},"{}","{}","{}")'.format(category,
-                                                                                                          reformat_text(
-                                                                                                              title),
-                                                                                                          reformat_text(
-                                                                                                              link),
-                                                                                                          date.today()))
+            'Insert into topics (category_id, title, link, added_date) values ({},"{}","{}","{}")'
+                .format(category, reformat_text(title), reformat_text(link), date.today()))
     else:
-        return 'Link "{}" is broken'.format(link)
+        message = 'Link "{}" is broken | Code = {}'.format(link, response.status_code)
+        query("Insert into error_log (text, date) values ('{}', '{}')".format(message,
+                                                                              date.today()))
+        return message
 
 
 def update_topic(id, title, link, category):

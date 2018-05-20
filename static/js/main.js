@@ -84,4 +84,11 @@ $(window).click(function() {
     var x = document.getElementById("navDemo");
     x.className = x.className.replace(" w3-show", "");
 });
+
+var trackOutboundLink = function(url) {
+   ga('send', 'event', 'outbound', 'click', url, {
+     'transport': 'beacon',
+     'hitCallback': function(){document.location = url;}
+   });
+}
   });

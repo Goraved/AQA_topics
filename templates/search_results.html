@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<title>AQA Topics</title>
+{% for request in requests %}
+<title>AQA Topics | Search results for - {{request['text']}}</title>
+{% endfor %}
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119547534-1"></script>
@@ -11,7 +13,12 @@
 
   gtag('config', 'UA-119547534-1');
 
-
+var trackOutboundLink = function(url) {
+   ga('send', 'event', 'outbound', 'click', url, {
+     'transport': 'beacon',
+     'hitCallback': function(){document.location = url;}
+   });
+}
     </script>
 </head>
 <meta charset="UTF-8">
@@ -75,8 +82,8 @@
             <ul>
                 {% for result in results %}
                 <div class="w3-row-padding w3-light-grey w3-padding-16 w3-container w3-margin">
-                    <li class="w3-padding-5"><a  onclick="trackOutboundLink('{{result['link']}}')"
-                            class="w3-large" href={{result['link']}} target="_blank">[{{result['category']}}]:
+                    <li class="w3-padding-5"><a onclick="trackOutboundLink('{{result['link']}}')"
+                                                class="w3-large" href={{result['link']}} target="_blank">[{{result['category']}}]:
                         {{result['topic']}}</a>
                     </li>
                 </div>

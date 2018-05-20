@@ -13,12 +13,17 @@
 
   gtag('config', 'UA-119547534-1');
 
-var trackOutboundLink = function(event) {
-  ga('send', 'event', {
-    eventCategory: 'Outbound Link',
-    eventAction: 'click',
-    eventLabel: event.target.href
+var trackOutboundLink = function(url, new_window) {
+  ga('send', 'event', 'outbound', 'click', url, {'hitCallback':
+    function () {
+      if (!new_window) {
+        document.location = url;
+      }
+    }
   });
+  if (new_window){
+    window.open(url);
+  }
 }
     </script>
 </head>
@@ -83,8 +88,7 @@ var trackOutboundLink = function(event) {
             <ul>
                 {% for result in results %}
                 <div class="w3-row-padding w3-light-grey w3-padding-16 w3-container w3-margin">
-                    <li class="w3-padding-5"><a onclick="trackOutboundLink('{{result['link']}}')"
-                                                class="w3-large" href={{result['link']}} target="_blank">[{{result['category']}}]:
+                    <li class="w3-padding-5"><a class="track w3-large" href={{result['link']}} target="_blank">[{{result['category']}}]:
                         {{result['topic']}}</a>
                     </li>
                 </div>

@@ -11,11 +11,17 @@
 
   gtag('config', 'UA-119547534-1');
 
-var trackOutboundLink = function(url) {
-   ga('send', 'event', 'outbound', 'click', url, {
-     'transport': 'beacon',
-     'hitCallback': function(){document.location = url;}
-   });
+var trackOutboundLink = function(url, new_window) {
+  ga('send', 'event', 'outbound', 'click', url, {'hitCallback':
+    function () {
+      if (!new_window) {
+        document.location = url;
+      }
+    }
+  });
+  if (new_window){
+    window.open(url);
+  }
 }
     </script>
 </head>
@@ -61,15 +67,13 @@ var trackOutboundLink = function(url) {
             <div class="w3-dropdown-content w3-bar-block w3-card-4">
                 {% for link in topics %}
                 {% if link['category_id'] == 4 %}
-                <a onclick="trackOutboundLink('{{link['link']}}')" href="{{link['link']}}" target="_blank"
-                   class="w3-bar-item w3-button w3-hover-orange">{{link['title']}}</a>
+                <a target="_blank" class="track w3-bar-item w3-button w3-hover-orange">{{link['title']}}</a>
                 {% endif %}
                 {% endfor %}
             </div>
         </div>
-        <a onclick="trackOutboundLink('https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit')"
-           href="https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit"
-           class="w3-bar-item w3-hide-small w3-button w3-padding-large  w3-hover-orange" target="_blank">AQA
+        <a href="https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit"
+           class="track w3-bar-item w3-hide-small w3-button w3-padding-large  w3-hover-orange" target="_blank">AQA
             Tasks</a>
 
         <!-- Search -->
@@ -89,13 +93,11 @@ var trackOutboundLink = function(url) {
     <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
         {% for link in topics %}
         {% if link['category_id'] == 4 %}
-        <a onclick="trackOutboundLink('{{link['link']}}')" href="{{link['link']}}" target="_blank"
-           class="w3-bar-item w3-button w3-padding-large">{{link['title']}}</a>
+        <a href="{{link['link']}}" target="_blank" class="track w3-bar-item w3-button w3-padding-large">{{link['title']}}</a>
         {% endif %}
         {% endfor %}
-        <a onclick="trackOutboundLink('https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit')"
-           href="https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit" target="_blank"
-           class="w3-bar-item w3-button w3-padding-large">AQA Tasks</a>
+        <a href="https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit" target="_blank"
+           class="track w3-bar-item w3-button w3-padding-large">AQA Tasks</a>
     </div>
 </div>
 <!-- Header -->
@@ -127,8 +129,7 @@ var trackOutboundLink = function(url) {
                 <ul>
                     {% for topic in topics %}
                     {% if topic['new'] == True %}
-                    <li class="w3-padding-5"><a onclick="trackOutboundLink('{{topic['link']}}')"
-                                                class="w3-large" href={{topic['link']}} target="_blank"><span
+                    <li class="w3-padding-5"><a class="w3-large track" href={{topic['link']}} target="_blank"><span
                             style="color:grey;">[{{topic['category']}}]</span> {{topic['title']}}</a>
                     </li>
                     {% endif %}
@@ -155,8 +156,7 @@ var trackOutboundLink = function(url) {
             <ul>
                 {% for topic in topics %}
                 {% if topic['category_id'] == category['id'] %}
-                <li class="w3-padding-5"><a onclick="trackOutboundLink('{{topic['link']}}')"
-                                            class="w3-large" href={{topic['link']}}
+                <li class="w3-padding-5"><a class="w3-large track" href={{topic['link']}}
                                             target="_blank">{{topic['title']}}</a>
                 </li>
                 {% endif %}
@@ -179,7 +179,7 @@ var trackOutboundLink = function(url) {
         <ul>
             {% for topic in topics %}
             {% if topic['category_id'] == category['id'] %}
-            <li class="w3-padding-5"><a onclick="trackOutboundLink('{{topic['link']}}')" class="w3-padding-16 w3-large"
+            <li class="w3-padding-5"><a class="w3-padding-16 w3-large track"
                                         href={{topic['link']}} target="_blank">{{topic['title']}}</a>
             </li>
             {% endif %}

@@ -131,8 +131,8 @@ def reformat_text(text):
     return str(text).lstrip().rstrip().replace('<', '').replace('>', '')
 
 
-def create_category(title):
-    query("Insert into categories (title) values ('{}')".format(reformat_text(title)))
+def create_category(title, icon):
+    query("Insert into categories (title, icon) values ('{}', '{}')".format(reformat_text(title), icon))
 
 
 def update_category(id, title, icon):

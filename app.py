@@ -85,7 +85,8 @@ def delete_category(category_id):
 @app.route('/add_category', methods=['POST'])
 def add_category():
     title = request.form['Title']
-    create_category(title)
+    icon = request.form['Icon']
+    create_category(title, icon)
     return redirect("/god")
 
 

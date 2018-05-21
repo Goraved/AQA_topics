@@ -101,7 +101,7 @@ var trackOutboundLink = function(url, new_window) {
     </div>
 </div>
 <!-- Header -->
-<header id="top" class="w3-container w3-teal w3-center" style="padding-top:128px; padding-bottom:16px;">
+<header id="top" class="w3-container w3-teal w3-center block-top" style="padding-top:128px; padding-bottom:16px;">
     {% for message in messages %}
     {% if message['text'] != '' %}
     <div class="alert alert-warning alert-dismissible" style="margin-top:-50px;">
@@ -149,7 +149,7 @@ var trackOutboundLink = function(url, new_window) {
 {% endif %}
 {% if category['index'] % 2 == 0 %}
 <!-- First type -->
-<div class="w3-row-padding w3-padding-64 w3-container">
+<div class="w3-row-padding w3-padding-64 w3-container block-middle">
     <div class="w3-content">
         <div class="w3-twothird">
             <h3 class="w3-xxxlarge">{{category['title']}}</h3>
@@ -170,7 +170,7 @@ var trackOutboundLink = function(url, new_window) {
 </div>
 {% else %}
 <!-- Second type -->
-<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container block-middle">
     <div class="w3-content">
         <div class="w3-third w3-center">
             <i class="fa {{category['icon']}} w3-padding-32 w3-text-red w3-margin-right" style="font-size: 100px"></i>
@@ -190,7 +190,7 @@ var trackOutboundLink = function(url, new_window) {
 </div>
 {% endif %}
 {% endfor %}
-<div class="w3-container w3-black w3-center w3-opacity w3-padding-16">
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-16 block-bottom">
     <h2> Wanna add new topic? </h2>
     <div id="create" class="w3-container"
          style="max-width:500px; display: block; margin-left: auto; margin-right: auto;">

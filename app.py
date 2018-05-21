@@ -9,7 +9,10 @@ from verify import *
 
 app = Flask(__name__)
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
-version = [{'id': randint(1, 100000000)}]
+try:
+    version = os.environ['HEROKU_RELEASE_VERSION']
+except:
+    version = [{'id': randint(1, 100000000)}]
 
 
 @app.route("/")

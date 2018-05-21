@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+from random import randint
 
 from flask import Flask, render_template, redirect, url_for
 
@@ -8,7 +9,10 @@ from verify import *
 
 app = Flask(__name__)
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
-version = os.environ['HEROKU_RELEASE_VERSION']
+try:
+    version = [{'id': os.environ['HEROKU_RELEASE_VERSION']}]
+except:
+    version = [{'id': randint(1, 100000000)}]
 
 
 @app.route("/")

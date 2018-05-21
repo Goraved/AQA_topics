@@ -85,26 +85,17 @@ $(window).click(function() {
     x.className = x.className.replace(" w3-show", "");
 });
 
-$('a.track').each(function(index, element){
-    element = $(element);
-    var link = element.attr('href');
-    var new_window = element.attr('target') == '_blank' ? true : false;
-    element.click(function(){
-      trackOutboundLink(link, new_window);
-      return false;
-    });
-  });
 
-  var trackOutboundLink = function(url, new_window) {
-  ga('send', 'event', 'outbound', 'click', url, {'hitCallback':
-    function () {
-      if (!new_window) {
-        document.location = url;
-      }
-    }
+
+$('a.track').on('click', function(e){
+var currentLink = $(this)[0].href;
+  ga('send', 'event', {
+    eventCategory: 'Outbound Link',
+    eventAction: 'click',
+    eventLabel: currentLink,
+    transport: 'beacon'
   });
-  if (new_window){
-    window.open(url);
-  }
-}
+});
+
+// end
   });

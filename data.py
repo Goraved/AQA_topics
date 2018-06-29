@@ -114,6 +114,19 @@ def get_categories():
     return categories
 
 
+def index_topics_by_category(topics):
+    previous_cat = 0
+    index = 0
+    for topic in topics:
+        if topic['category_id'] == previous_cat:
+            index += 1
+            topic['index'] = index
+        else:
+            index = 0
+            topic['index'] = index
+        previous_cat = topic['category_id']
+
+
 def count_of_topic_in_cat(categories, topics):
     index, item = 0, 0
     for category in categories:

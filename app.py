@@ -24,6 +24,7 @@ def main():
     topics = get_topics()
     categories = get_categories()
     count_of_topic_in_cat(categories, topics)
+    index_topics_by_category(topics)
     # build_html()
     return render_template('index.html', topics=topics, categories=categories, versions=version,
                            messages=messages)

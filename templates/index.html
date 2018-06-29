@@ -14,6 +14,14 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 ga('create', 'UA-119547534-1', 'auto');
 ga('send', 'pageview');
 
+
+
+
+
+
+
+
+
     </script>
 </head>
 <meta name="description" content="Become a better automation quality assurance engineer right now!"/>
@@ -144,15 +152,29 @@ ga('send', 'pageview');
     <div class="w3-content">
         <div class="w3-twothird">
             <h3 class="w3-xxxlarge">{{category['title']}}</h3>
-            <ul>
-                {% for topic in topics %}
-                {% if topic['category_id'] == category['id'] %}
-                <li class="w3-padding-5"><a class="w3-large track" href={{topic['link']}}
-                                            target="_blank">{{topic['title']}}</a>
-                </li>
+            <div>
+                <input type="checkbox" class="read-more-state" id="post-1"/>
+                <ul class="read-more-wrap">
+                    {% for topic in topics %}
+                    {% if topic['category_id'] == category['id'] %}
+                    {% if topic['index'] < 10 %}
+                    <li class="w3-padding-5">
+                        <a class="w3-large track" href={{topic['link']}}
+                           target="_blank">{{topic['title']}}</a>
+                    </li>
+                    {% else %}
+                    <li class="w3-padding-5 read-more-target">
+                        <a class="w3-large track" href={{topic['link']}}
+                           target="_blank">{{topic['title']}}</a>
+                    </li>
+                    {% endif%}
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                {% if category['count'] > 10 %}
+                <label for="post-1" class="read-more-trigger"></label>
                 {% endif %}
-                {% endfor %}
-            </ul>
+            </div>
         </div>
         <div class="w3-third w3-center">
             <i class="{{category['icon']}} w3-padding-32 w3-text-red" style="font-size: 100px"></i>
@@ -167,15 +189,29 @@ ga('send', 'pageview');
             <i class="fa {{category['icon']}} w3-padding-32 w3-text-red w3-margin-right" style="font-size: 100px"></i>
         </div>
         <h3 class="w3-xxxlarge">{{category['title']}}</h3>
-        <ul>
-            {% for topic in topics %}
-            {% if topic['category_id'] == category['id'] %}
-            <li class="w3-padding-5"><a class="w3-padding-16 w3-large track"
-                                        href={{topic['link']}} target="_blank">{{topic['title']}}</a>
-            </li>
+        <div>
+            <input type="checkbox" class="read-more-state" id="post-2"/>
+            <ul class="read-more-wrap">
+                {% for topic in topics %}
+                {% if topic['category_id'] == category['id'] %}
+                {% if topic['index'] < 10 %}
+                <li class="w3-padding-5">
+                    <a class="w3-large track" href={{topic['link']}}
+                       target="_blank">{{topic['title']}}</a>
+                </li>
+                {% else %}
+                <li class="w3-padding-5 read-more-target">
+                    <a class="w3-large track" href={{topic['link']}}
+                       target="_blank">{{topic['title']}}</a>
+                </li>
+                {% endif%}
+                {% endif %}
+                {% endfor %}
+            </ul>
+            {% if category['count'] > 10 %}
+            <label for="post-2" class="read-more-trigger"></label>
             {% endif %}
-            {% endfor %}
-        </ul>
+        </div>
     </div>
 </div>
 </div>
@@ -199,7 +235,8 @@ ga('send', 'pageview');
                 {% endfor %}
             </select>
             <p>If you wanna add a new category, you can <a class="track"
-                    href="mailto:roman.pobotin@gmail.com?subject=Category propose" target="_blank">contact me</a>.</p>
+                                                           href="mailto:roman.pobotin@gmail.com?subject=Category propose"
+                                                           target="_blank">contact me</a>.</p>
             <input class="w3-btn w3-orange" type="submit" style="margin:10px;">
         </form>
     </div>

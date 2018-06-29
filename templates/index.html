@@ -61,12 +61,14 @@ ga('send', 'pageview');
            class="w3-bar-item w3-green w3-large w3-button w3-padding-large  w3-hover-orange">
             <i class="fa fa-edit"></i>
         </a>
+        
+        <!-- Dynamic topics -->
         <div class="w3-dropdown-hover">
             <button class="w3-button w3-hide-small w3-padding-large w3-hover-orange">Dynamic content</button>
             <div class="w3-dropdown-content w3-bar-block w3-card-4">
                 {% for link in topics %}
                 {% if link['category_id'] == 4 %}
-                <a target="_blank" class="track w3-bar-item w3-button w3-hover-orange">{{link['title']}}</a>
+                <a target="_blank" href="{{link['link']}}" class="track w3-bar-item w3-button w3-hover-orange">{{link['title']}}</a>
                 {% endif %}
                 {% endfor %}
             </div>
@@ -217,6 +219,7 @@ ga('send', 'pageview');
 </div>
 {% endif %}
 {% endfor %}
+    <!-- Add topics -->
 <div class="w3-container w3-black w3-center w3-opacity w3-padding-16 block-bottom">
     <h2> Wanna add new topic? </h2>
     <div id="create" class="w3-container"

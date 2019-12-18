@@ -74,7 +74,6 @@ where t.title like '% {}%' or t.title like '{}%'
 order by c.id, t.title""".format(search_request, search_request))
     for row in cur.fetchall():
         topics.append({'topic': row[0], 'link': row[1], 'category': row[2]})
-    cur.close()
     return topics
 
 
@@ -83,7 +82,6 @@ def get_user(username):
     cur = query("select username, password from aqa where username like '{}'".format(username))
     for row in cur.fetchall():
         users.append({'username': row[0], 'pass': row[1]})
-    cur.close()
     return users[0]
 
 
@@ -96,7 +94,6 @@ JOIN categories as c on t.category_id = c.id
         topics.append(
             {'id': row[0], 'category_id': row[1], 'title': row[2], 'link': row[3], 'comments': row[4], 'date': row[5],
              'new': check_if_topic_is_new(row[5]), 'category': row[6]})
-    cur.close()
     return topics
 
 
@@ -110,7 +107,6 @@ def get_categories():
     cur = query("Select * from categories")
     for row in cur.fetchall():
         categories.append({'id': row[0], 'title': row[1], 'comments': row[2], 'icon': row[3]})
-    cur.close()
     return categories
 
 

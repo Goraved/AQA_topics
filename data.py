@@ -1,3 +1,4 @@
+import asyncio
 import os
 from datetime import date, timedelta
 
@@ -30,7 +31,11 @@ def query(sql):
 
 # Topics
 def create_topic(title, link, category):
-    topics = get_topics()
+    # Async gathering of data
+    ioloop = asyncio.new_event_loop()
+    asyncio.set_event_loop(ioloop)
+    async_values = ioloop.run_until_complete(asyncio.gather(*[get_topics()]))
+    topics = async_values[0]
     for topic in topics:
         if title != topic['title'] and link != topic['link']:
             continue
@@ -85,7 +90,8 @@ def get_user(username):
     return users[0]
 
 
-def get_topics():
+async def get_topics():
+    await asyncio.sleep(0)
     topics = []
     cur = query("""Select t.id, t.category_id, t.title, t.link, t.comments, t.added_date, c.title  from topics as t
 JOIN categories as c on t.category_id = c.id
@@ -102,7 +108,8 @@ def remove_topic(id):
 
 
 # Categories
-def get_categories():
+async def get_categories():
+    await asyncio.sleep(0)
     categories = []
     cur = query("Select * from categories")
     for row in cur.fetchall():

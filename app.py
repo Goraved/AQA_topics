@@ -21,11 +21,17 @@ def main():
         messages = [{'text': request.args['messages']}]
     except KeyError:
         messages = [{'text': ''}]
-    topics = get_topics()
-    categories = get_categories()
+
+    # Async gathering of data
+    ioloop = asyncio.new_event_loop()
+    asyncio.set_event_loop(ioloop)
+    tasks = [get_topics(), get_categories()]
+    async_values = ioloop.run_until_complete(asyncio.gather(*tasks))
+    topics = async_values[0]
+    categories = async_values[1]
+
     count_of_topic_in_cat(categories, topics)
     index_topics_by_category(topics)
-    # build_html()
     return render_template('index.html', topics=topics, categories=categories, versions=version,
                            messages=messages)
 
@@ -33,8 +39,13 @@ def main():
 @app.route("/god")
 @requires_auth
 def editor_mode():
-    topics = get_topics()
-    categories = get_categories()
+    # Async gathering of data
+    ioloop = asyncio.new_event_loop()
+    asyncio.set_event_loop(ioloop)
+    tasks = [get_topics(), get_categories()]
+    async_values = ioloop.run_until_complete(asyncio.gather(*tasks))
+    topics = async_values[0]
+    categories = async_values[1]
     return render_template('god.html', topics=topics, categories=categories)
 
 

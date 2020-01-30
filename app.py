@@ -105,5 +105,15 @@ def add_category():
     return redirect("/god")
 
 
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html', title='404'), 404
+
+
+@app.errorhandler(500)
+def server_error(error):
+    return render_template('500.html', title='500'), 500
+
+
 if __name__ == "__main__":
     app.run()

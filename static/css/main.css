@@ -267,37 +267,48 @@ ul {
 }
 
 .back {
-  background-color: rgba(0, 150, 136, 0.7);
-  width:45%;
-  margin: 0 auto;
+	background-color: rgba(0, 150, 136, 0.7);
+	width: 45%;
+	margin: 0 auto;
 }
-
 
 @media screen and (max-width: 1367px) {
-  .w3-jumbo {
-    font-size: 32px!important;
-  }
-    .w3-xlarge {
-    font-size: 24px!important;
-  }
-  .w3-large {
-    font-size: 16px!important;
-  }
-  .back {
-  width:45%;
-  }
+	.w3-jumbo {
+		font-size: 32px!important;
+	}
+	.w3-xlarge {
+		font-size: 24px!important;
+	}
+	.w3-large {
+		font-size: 16px!important;
+	}
+	.back {
+		width: 45%;
+	}
+	.w3-padding-64 {
+		padding-top: 40px!important;
+		padding-bottom: 40px!important;
+	}
 }
+
 @media screen and (max-width: 600px) {
-  .w3-jumbo {
-    font-size: 26px!important;
-  }
-    .w3-xlarge {
-    font-size: 20px!important;
-  }
-  .w3-large {
-    font-size: 16px!important;
-  }
-  .back {
-  width:80%;
-  }
+	.w3-jumbo {
+		font-size: 26px!important;
+	}
+	.w3-xlarge {
+		font-size: 20px!important;
+	}
+	.w3-xxxlarge {
+		font-size: 30px!important;
+	}
+	.w3-large {
+		font-size: 16px!important;
+	}
+	.back {
+		width: 80%;
+	}
+	.w3-padding-64 {
+		padding-top: 32px!important;
+		padding-bottom: 32px!important;
+	}
 }

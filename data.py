@@ -162,3 +162,18 @@ def remove_category(id):
 
 def check_if_topic_is_new(topic_date):
     return date.today() - topic_date < timedelta(days=7)
+
+
+async def get_season():
+    await asyncio.sleep(0)
+    current_month = date.today().month
+    if current_month in [12, 1, 2]:
+        return 'winter'
+    elif current_month in [3, 4, 5]:
+        return 'spring'
+    elif current_month in [6, 7, 8]:
+        return 'summer'
+    elif current_month in [9, 10, 11]:
+        return 'autumn'
+    else:
+        raise Exception('Something went totally wrong!')

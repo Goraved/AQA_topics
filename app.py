@@ -25,15 +25,15 @@ def main():
     # Async gathering of data
     ioloop = asyncio.new_event_loop()
     asyncio.set_event_loop(ioloop)
-    tasks = [get_topics(), get_categories()]
+    tasks = [get_topics(), get_categories(), get_season()]
     async_values = ioloop.run_until_complete(asyncio.gather(*tasks))
     topics = async_values[0]
     categories = async_values[1]
-
+    tech = [async_values[2]]
     count_of_topic_in_cat(categories, topics)
     index_topics_by_category(topics)
     return render_template('index.html', topics=topics, categories=categories, versions=version,
-                           messages=messages)
+                           messages=messages, tech=tech)
 
 
 @app.route("/god")

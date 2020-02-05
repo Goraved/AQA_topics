@@ -265,3 +265,7 @@ ul {
      position: relative;
     z-index: 999;
 }
+
+.back {
+background-color: rgba(0, 150, 136, 0.5)
+}

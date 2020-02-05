@@ -267,5 +267,37 @@ ul {
 }
 
 .back {
-background-color: rgba(0, 150, 136, 0.5)
+  background-color: rgba(0, 150, 136, 0.7);
+  width:45%;
+  margin: 0 auto;
+}
+
+
+@media screen and (max-width: 1367px) {
+  .w3-jumbo {
+    font-size: 32px!important;
+  }
+    .w3-xlarge {
+    font-size: 24px!important;
+  }
+  .w3-large {
+    font-size: 16px!important;
+  }
+  .back {
+  width:45%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .w3-jumbo {
+    font-size: 26px!important;
+  }
+    .w3-xlarge {
+    font-size: 20px!important;
+  }
+  .w3-large {
+    font-size: 16px!important;
+  }
+  .back {
+  width:80%;
+  }
 }

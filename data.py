@@ -51,8 +51,8 @@ def create_topic(title, link, category):
             response = requests.get(link, headers=headers)
         else:
             response = requests.get(link)
-    except:
-        return 'Bad url'
+    except Exception as e:
+        return f'Bad url - {e.args[0]}'
     if response.status_code == 200:
         query(
             'Insert into topics (category_id, title, link, added_date) values ({},"{}","{}","{}")'

@@ -53,10 +53,9 @@ def create_topic(title, link, category):
             response = requests.get(link)
     except Exception as e:
         return f'Bad url - {e.args[0]}'
-    if response.status_code == 200:
-        query(
-            'Insert into topics (category_id, title, link, added_date) values ({},"{}","{}","{}")'
-                .format(category, reformat_text(title), reformat_text(link), date.today()))
+    if str(response.status_code)[0] == '2' or 'www.udemy.com' in link or 'www.youtube.com' in link:
+        query('Insert into topics (category_id, title, link, added_date) values ({},"{}","{}","{}")'
+              .format(category, reformat_text(title), reformat_text(link), date.today()))
     else:
         message = 'Link "{}" is broken | Code = {}'.format(link, response.status_code)
         query("Insert into error_log (text, date) values ('{}', '{}')".format(message,

@@ -25,6 +25,8 @@ ga('send', 'pageview');
 
 
 
+
+
     </script>
 </head>
 <meta name="description" content="Become a better automation quality assurance engineer right now!"/>
@@ -49,7 +51,18 @@ ga('send', 'pageview');
 {% for version in versions %}
 <script src="static/js/main.js?version={{version['id']}}"></script>
 {% endfor %}
+
+
 <body>
+
+<div id="loading" class="load">
+    <div class="loading-dialog">
+            <div class="loading-body">
+                <h1 class="title">Loading</h1>
+                <div class="rainbow-marker-loader"></div>
+            </div>
+    </div>
+</div>
 <!-- Navbar -->
 
 <div class="w3-top">
@@ -149,6 +162,8 @@ ga('send', 'pageview');
 
     </div>
 </header>
+
+
 {% for category in categories %}
 {% if category['id'] == 4 %}
 {% continue %}

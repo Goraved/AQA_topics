@@ -27,7 +27,6 @@ $('a[href*="#"]')
   .not('[href="#"]')
   .not('[href="#0"]')
   .click(function(event) {
-    // On-page links
     if (
       location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
       &&
@@ -97,5 +96,11 @@ var currentLink = $(this)[0].href;
   });
 });
 
+ document.getElementById("create").onsubmit =  function(){
+    document.getElementById('loading').style.display = "block";
+    document.getElementById("scrollBtn").click();
+  };
+
 // end
   });
+

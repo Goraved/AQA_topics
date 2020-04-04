@@ -12,7 +12,9 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 
 ga('create', 'UA-119547534-1', 'auto');
 ga('send', 'pageview');
-</script>
+
+
+    </script>
 </head>
 <meta name="description" content="Become a better automation quality assurance engineer right now!"/>
 <meta property="og:title" content="AQA Topics"/>
@@ -40,17 +42,39 @@ ga('send', 'pageview');
 
 <body>
 
+<div id="id01" class="w3-modal cats">
+    <div id="id02" class="w3-modal-content cats1">
+        <div class="w3-container">
+            <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <form class="move">
+                    <h2>Categories</h2>
+                    {% for category in categories %}
+                    {% if category['id'] == 4 %}
+                    {% continue %}
+                    {% endif %}
+                    {% if category['count'] == 0 %}
+                    {% continue %}
+                    {% endif %}
+                    <p><a href="#{{category['id']}}" onclick="document.getElementById('id01').style.display='none'">{{category['title']}}</a></p>
+                    {% endfor %}
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <div id="loading" class="load">
     <div class="loading-dialog">
-            <div class="loading-body">
-                <h1 class="title">Loading</h1>
-                <div class="rainbow-marker-loader"></div>
-            </div>
+        <div class="loading-body">
+            <h1 class="title">Loading</h1>
+            <div class="rainbow-marker-loader"></div>
+        </div>
     </div>
 </div>
 <!-- Navbar -->
 
 <div class="w3-top">
+    <button onclick="document.getElementById('id01').style.display='block'" id="moveTo" title="Go to top"><i class="fa fa-list-alt" aria-hidden="true"></i></button>
     <a href="#top" id="scrollBtn" title="Go to top"><i class="fa fa-angle-double-up w3-large"></i></a>
     <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
         <a id="toogle"
@@ -158,7 +182,7 @@ ga('send', 'pageview');
 {% endif %}
 {% if category['index'] % 2 == 0 %}
 <!-- First type -->
-<div class="w3-row-padding w3-padding-64 w3-container block-middle">
+<div class="w3-row-padding w3-padding-64 w3-container block-middle" id="{{category['id']}}">
     <div class="w3-content">
         <div class="w3-twothird">
             <h3 class="w3-xxxlarge">{{category['title']}}</h3>
@@ -193,7 +217,7 @@ ga('send', 'pageview');
 </div>
 {% else %}
 <!-- Second type -->
-<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container block-middle">
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container block-middle" id="{{category['id']}}">
     <div class="w3-content">
         <div class="w3-third w3-center">
             <i class="fa {{category['icon']}} w3-padding-32 w3-text-red w3-margin-right" style="font-size: 100px"></i>

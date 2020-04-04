@@ -3,6 +3,33 @@
 	/* Hidden by default */
 	position: fixed;
 	/* Fixed/sticky position */
+	bottom: 90px;
+	/* Place the button at the bottom of the page */
+	right: 20px;
+	/* Place the button 30px from the right */
+	z-index: 99;
+	/* Make sure it does not overlap */
+	border: none;
+	/* Remove borders */
+	outline: none;
+	/* Remove outline */
+	background-color: red;
+	/* Set a background color */
+	color: white;
+	/* Text color */
+	cursor: pointer;
+	/* Add a mouse pointer on hover */
+	padding: 15px;
+	/* Some padding */
+	border-radius: 10px;
+	/* Rounded corners */
+	font-size: 20px;
+	/* Increase font size */
+}#moveTo {
+	display: block;
+	/* Hidden by default */
+	position: fixed;
+	/* Fixed/sticky position */
 	bottom: 20px;
 	/* Place the button at the bottom of the page */
 	right: 20px;
@@ -271,6 +298,14 @@ ul {
 	width: 45%;
 	margin: 0 auto;
 }
+.cats1 {
+    width:20%;
+    margin-left:75%;
+    top: 55%;
+}
+.cats {
+    z-index: 4;
+}
 
 @media screen and (max-width: 1367px) {
 	.w3-jumbo {
@@ -289,6 +324,15 @@ ul {
 		padding-top: 40px!important;
 		padding-bottom: 40px!important;
 	}
+	.cats {
+        width:100%;
+    }
+    .cats1 {
+        width:30%;
+        margin-left: 65%;
+        padding-top: 0%;
+        top: 55%
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -311,6 +355,14 @@ ul {
 		padding-top: 32px!important;
 		padding-bottom: 32px!important;
 	}
+	.cats {
+        width:100%;
+    }
+    .cats1 {
+        margin-left: 0%;
+        padding-top: 0%;
+        top: 30%
+    }
 }
 
 .loader {

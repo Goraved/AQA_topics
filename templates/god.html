@@ -10,11 +10,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    {% for version in versions %}
-    <script src="static/js/main.js?version={{version['id']}}"></script>
-    {% endfor %}
+    <script src="static/js/main.js"></script>
 </head>
 <body>
+
+<div id="loading" class="load">
+    <div class="loading-dialog">
+        <div class="loading-body">
+            <h1 class="title">Loading</h1>
+            <div class="rainbow-marker-loader"></div>
+        </div>
+    </div>
+</div>
+
+<a href="#top" id="scrollBtn" title="Go to top"><i class="fa fa-angle-double-up w3-large"></i></a>
+
 <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
 <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-angle-double-up w3-large"></i></button>
 <div class="w3-top">
@@ -66,14 +76,14 @@
                 </td>
                 <input type="hidden" name="id" value="{{topic['id']}}">
             </form>
-            <td><a class="w3-button w3-medium w3-circle w3-black" data-confirm="Are you sure?" data-method="delete"
+            <td><a class="w3-button w3-medium w3-circle w3-black" data-confirm="Are you sure?" data-method="delete" id="submitLoad"
                    href="/delete_topic/{{topic['id']}}"
                    rel="nofollow"><i class="fa fa-trash fa-lg w3-text-red"></i></a>
             </td>
         </tr>
         {% endfor %}
         <tr class="w3-grey">
-            <form action="/add_topic" method="POST">
+            <form action="/add_topic" method="POST"  id="submitLoad">
                 <td><input class="w3-input" type="text" maxlength="200" name="Title" placeholder="Enter title" required>
                 </td>
                 <td><input class="w3-input" type="text" maxlength="200" name="URL" placeholder="Enter URL link"
@@ -120,20 +130,60 @@
                 </td>
                 <input type="hidden" name="id" value="{{category['id']}}">
             </form>
-            <td><a class="w3-button w3-medium w3-circle w3-black" data-confirm="Are you sure?" data-method="delete"
+            <td><a class="w3-button w3-medium w3-circle w3-black" data-confirm="Are you sure?" data-method="delete" id="submitLoad"
                    href="/delete_category/{{category['id']}}"
                    rel="nofollow"><i class="fa fa-trash fa-lg w3-text-red"></i></a>
             </td>
         </tr>
         {% endfor %}
         <tr class="w3-grey">
-            <form action="/add_category" method="POST">
+            <form action="/add_category" method="POST" id="submitLoad">
                 <td><input class="w3-input" type="text" maxlength="200" name="Title"
                            placeholder="Enter title to create new category"
                            required></td>
                 <td><input class="w3-input" type="text" maxlength="200" name="Icon" placeholder="Enter icon class"
                            required
                            title="Use font-awesome or mfizz"></td>
+                <td colspan="2">
+                    <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
+                            class="fa fa-plus fa-lg w3-text-green"></i></button>
+                </td>
+            </form>
+        </tr>
+    </table>
+</div>
+
+<div class="w3-container w3-padding-64">
+    <div class="w3-center">
+        <h2>Domains whitelist</h2>
+    </div>
+    <div class="loader"></div>
+    <table class="w3-table-all w3-centered">
+        <tr class="w3-teal">
+            <th>Domain</th>
+            <th colspan="2">Actions</th>
+        </tr>
+        {% for domain in domains %}
+        <tr>
+            <form action="/edit_domain" method="POST" target="dummyframe">
+                <td><input class="w3-input" type="text" maxlength="200" name="NewDomain" placeholder="Enter domain name"
+                           required value="{{domain}}"></td>
+                <td>
+                    <input type="hidden" name="OldDomain" value="{{domain}}">
+                    <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
+                            class="fa fa-save fa-lg w3-text-green"></i></button>
+                </td>
+            </form>
+            <td><a class="w3-button w3-medium w3-circle w3-black" data-confirm="Are you sure?" data-method="delete" id="submitLoad"
+                   href="/delete_domain/{{domain}}"
+                   rel="nofollow"><i class="fa fa-trash fa-lg w3-text-red"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr class="w3-grey">
+            <form action="/add_domain" method="POST" id="submitLoad">
+                <td><input class="w3-input" type="text" maxlength="200" name="Domain"
+                           placeholder="Enter name to create new domain" required></td>
                 <td colspan="2">
                     <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
                             class="fa fa-plus fa-lg w3-text-green"></i></button>

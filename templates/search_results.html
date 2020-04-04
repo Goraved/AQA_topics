@@ -25,6 +25,7 @@ var trackOutboundLink = function(url, new_window) {
     window.open(url);
   }
 }
+
     </script>
 </head>
 <meta charset="UTF-8">
@@ -55,18 +56,20 @@ var trackOutboundLink = function(url, new_window) {
                 class="fa fa-bars"></i></a>
         <a href="/" class="w3-bar-item w3-button w3-padding-large w3-white"><i class="fa fa-home"></i></a>
         {% for request in requests %}
-        <form action="/search" method="POST" class="w3-hide-small">
+        {% for host in hosts %}
+        <form action="{{host}}search" method="GET" class="w3-hide-small">
             <input value="{{request['text']}}"
                    class="w3-bar-item w3-input w3-right w3-hide-small  w3-large w3-padding-large w3-animate-input"
-                   placeholder="Search.." style="width: 18%; max-width: 39%;" type="text" required name="Search">
+                   placeholder="Search.." style="width: 18%; max-width: 39%;" type="text" required name="search">
             <input type="submit" style="display:none;">
         </form>
-        <form action="/search" method="POST" class="w3-hide-large">
+        <form action="{{host}}search" method="GET" class="w3-hide-large">
             <input value="{{request['text']}}"
                    class="w3-bar-item w3-input w3-right w3-hide-large  w3-large w3-padding-large"
-                   placeholder="Search.." style="width: 59%;" type="text" required name="Search">
+                   placeholder="Search.." style="width: 59%;" type="text" required name="search">
             <input type="submit" style="display:none;">
         </form>
+        {% endfor %}
         {% endfor %}
     </div>
 </div>

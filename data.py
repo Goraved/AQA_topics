@@ -5,27 +5,43 @@ from datetime import date, timedelta
 import MySQLdb
 import requests
 
+DB = None
 
-def query(sql):
-    db = MySQLdb.connect(user=os.environ['DB_USER'], password=os.environ['DB_PASS'],
+
+def db_connection():
+    global DB
+    DB = MySQLdb.connect(user=os.environ['DB_USER'], password=os.environ['DB_PASS'],
                          host=os.environ['DB_HOST'], charset='utf8',
                          database=os.environ['DB'], connect_timeout=600)
     try:
-        cursor = db.cursor()
+        cursor = DB.cursor()
         cursor.execute("""SET NAMES 'utf8';
     SET CHARACTER SET 'utf8';
     SET SESSION collation_connection = 'utf8_general_ci';""")
     except:
         pass
+
+
+def close_connection():
+    global DB
+    if DB:
+        DB.close()
+
+
+def query(sql):
+    if not DB:
+        db_connection()
+
     try:
-        cursor = db.cursor()
+        cursor = DB.cursor()
         cursor.execute(sql)
+        DB.commit()
     except (AttributeError, MySQLdb.OperationalError):
-        db.ping(True)
-        cursor = db.cursor()
+        db_connection()
+        # DB.ping(True)
+        cursor = DB.cursor()
         cursor.execute(sql)
-    db.commit()
-    db.close()
+        DB.commit()
     return cursor
 
 
@@ -53,6 +69,7 @@ def create_topic(title, link, category):
             response = requests.get(link)
     except Exception as e:
         return f'Bad url - {e.args[0]}'
+    # TODO add whitelist to DB
     if str(response.status_code)[0] == '2' or 'www.udemy.com' in link or 'www.youtube.com' in link:
         query('Insert into topics (category_id, title, link, added_date) values ({},"{}","{}","{}")'
               .format(category, reformat_text(title), reformat_text(link), date.today()))
@@ -72,10 +89,10 @@ def update_topic(id, title, link, category):
 
 def search_topics(search_request):
     topics = []
-    cur = query("""select t.title, t.link, c.title from topics as t
+    cur = query(f"""select t.title, t.link, c.title from topics as t
 join categories as c on t.category_id = c.id
-where t.title like '% {}%' or t.title like '{}%'
-order by c.id, t.title""".format(search_request, search_request))
+where t.title like '% {search_request}%' or t.title like '{search_request}%' or t.title like '[{search_request}%'
+order by c.id, t.title""")
     for row in cur.fetchall():
         topics.append({'topic': row[0], 'link': row[1], 'category': row[2]})
     return topics
@@ -83,7 +100,7 @@ order by c.id, t.title""".format(search_request, search_request))
 
 def get_user(username):
     users = []
-    cur = query("select username, password from aqa where username like '{}'".format(username))
+    cur = query(f"select username, password from aqa where username like '{username}'")
     for row in cur.fetchall():
         users.append({'username': row[0], 'pass': row[1]})
     return users[0]
@@ -103,7 +120,7 @@ JOIN categories as c on t.category_id = c.id
 
 
 def remove_topic(id):
-    query("Delete from topics where id = {}".format(id))
+    query(f"Delete from topics where id = {id}")
 
 
 # Categories
@@ -148,15 +165,34 @@ def reformat_text(text):
 
 
 def create_category(title, icon):
-    query("Insert into categories (title, icon) values ('{}', '{}')".format(reformat_text(title), icon))
+    query(f"Insert into categories (title, icon) values ('{reformat_text(title)}', '{icon}')")
 
 
 def update_category(id, title, icon):
-    query("Update categories set title='{}', icon='{}' where id = {}".format(reformat_text(title), icon, id))
+    query(f"Update categories set title='{reformat_text(title)}', icon='{icon}' where id = {id}")
 
 
 def remove_category(id):
-    query("Delete from categories where id = {}".format(id))
+    query(f"Delete from categories where id = {id}")
+
+
+async def get_domains():
+    await asyncio.sleep(0)
+    cur = query("Select domain from whitelist")
+    domains = [_[0] for _ in cur.fetchall()]
+    return domains
+
+
+def create_domain(domain):
+    query(f"Insert into whitelist  values ('{domain}')")
+
+
+def update_domain(old_domain, new_domain):
+    query(f"Update whitelist set domain='{new_domain}' where domain = '{old_domain}'")
+
+
+def remove_domain(domain):
+    query(f"Delete from whitelist where domain = '{domain}'")
 
 
 def check_if_topic_is_new(topic_date):

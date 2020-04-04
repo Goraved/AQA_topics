@@ -20,6 +20,7 @@ function myFunction() {
 }
 
 
+
 $(document).ready(function(){
 // Select all links with hashes
 $('a[href*="#"]')
@@ -97,6 +98,14 @@ var currentLink = $(this)[0].href;
 });
 
  document.getElementById("create").onsubmit =  function(){
+    document.getElementById('loading').style.display = "block";
+    document.getElementById("scrollBtn").click();
+  };
+   document.getElementById("submitLoad").onsubmit =  function(){
+    document.getElementById('loading').style.display = "block";
+    document.getElementById("scrollBtn").click();
+  };
+ document.getElementById("submitLoad").onclick =  function(){
     document.getElementById('loading').style.display = "block";
     document.getElementById("scrollBtn").click();
   };

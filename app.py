@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from random import randint
 
+import flask
 from flask import Flask, render_template, redirect, url_for
 
 from data import *
@@ -42,18 +43,20 @@ def editor_mode():
     # Async gathering of data
     ioloop = asyncio.new_event_loop()
     asyncio.set_event_loop(ioloop)
-    tasks = [get_topics(), get_categories()]
+    tasks = [get_topics(), get_categories(), get_domains()]
     async_values = ioloop.run_until_complete(asyncio.gather(*tasks))
     topics = async_values[0]
     categories = async_values[1]
-    return render_template('god.html', topics=topics, categories=categories)
+    domains = async_values[2]
+    return render_template('god.html', topics=topics, categories=categories, domains=domains)
 
 
 @app.route('/search', methods=['GET'])
 def search():
     search_request = reformat_text(request.args['search'])
     search_results = search_topics(search_request)
-    return render_template("search_results.html", results=search_results,
+    hosts = [flask.request.host_url]
+    return render_template("search_results.html", results=search_results, hosts=hosts,
                            requests=[{'text': search_request, 'count': len(search_results)}], versions=version)
 
 
@@ -102,6 +105,27 @@ def add_category():
     title = request.form['Title']
     icon = request.form['Icon']
     create_category(title, icon)
+    return redirect("/god")
+
+
+@app.route('/edit_domain', methods=['POST'])
+def edit_domain():
+    old_domain = request.form['OldDomain']
+    new_domain = request.form['NewDomain']
+    update_domain(old_domain=old_domain, new_domain=new_domain)
+    return redirect(url_for('editor_mode'))
+
+
+@app.route('/delete_domain/<domain>')
+def delete_domain(domain):
+    remove_domain(domain)
+    return redirect("/god")
+
+
+@app.route('/add_domain', methods=['POST'])
+def add_domain():
+    domain = request.form['Domain']
+    create_domain(domain)
     return redirect("/god")
 
 

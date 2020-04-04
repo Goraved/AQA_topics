@@ -36,7 +36,7 @@ def query(sql):
         cursor = DB.cursor()
         cursor.execute(sql)
         DB.commit()
-    except (AttributeError, MySQLdb.OperationalError):
+    except:
         db_connection()
         # DB.ping(True)
         cursor = DB.cursor()
@@ -56,7 +56,7 @@ def create_topic(title, link, category):
         if title != topic['title'] and link != topic['link']:
             continue
         else:
-            return 'Topic already added with title "{}"'.format(topic['title'])
+            return f'Topic already added with title "{topic["title"]}"'
     try:
         if 'dou' in link:
             headers = {
@@ -70,21 +70,25 @@ def create_topic(title, link, category):
     except Exception as e:
         return f'Bad url - {e.args[0]}'
     # TODO add whitelist to DB
-    if str(response.status_code)[0] == '2' or 'www.udemy.com' in link or 'www.youtube.com' in link:
+    if str(response.status_code)[0] == '2' or check_link_in_whitelist(link):
         query('Insert into topics (category_id, title, link, added_date) values ({},"{}","{}","{}")'
               .format(category, reformat_text(title), reformat_text(link), date.today()))
     else:
-        message = 'Link "{}" is broken | Code = {}'.format(link, response.status_code)
-        query("Insert into error_log (text, date) values ('{}', '{}')".format(message,
-                                                                              date.today()))
+        message = f'Link "{link}" is broken | Code = {response.status_code}'
+        query(f"Insert into error_log (text, date) values ('{message}', '{date.today()}')")
         return message
+
+
+def check_link_in_whitelist(link):
+    for domain in get_domains_list():
+        if domain in link:
+            return True
+    return False
 
 
 def update_topic(id, title, link, category):
     query(
-        "Update topics set title='{}', link='{}', category_id={} where id = {}".format(reformat_text(title),
-                                                                                       reformat_text(link), category,
-                                                                                       id))
+        f"Update topics set title='{reformat_text(title)}', link='{reformat_text(link)}', category_id={category} where id = {id}")
 
 
 def search_topics(search_request):
@@ -178,6 +182,12 @@ def remove_category(id):
 
 async def get_domains():
     await asyncio.sleep(0)
+    cur = query("Select domain from whitelist")
+    domains = [_[0] for _ in cur.fetchall()]
+    return domains
+
+
+def get_domains_list():
     cur = query("Select domain from whitelist")
     domains = [_[0] for _ in cur.fetchall()]
     return domains

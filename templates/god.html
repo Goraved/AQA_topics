@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <title>God Mode</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="static/js/main.js"></script>
 </head>
+<header id="top"></header>
 <body>
 
 <div id="loading" class="load">
@@ -30,9 +31,19 @@
 <div class="w3-top">
     <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
         <a href="/" class="w3-bar-item w3-button w3-padding-large w3-white"><i class="fa fa-home"></i></a>
+
+        <a href="#topics" class="w3-button w3-hide-small w3-padding-large w3-hover-orange">
+            Topics
+        </a>
+        <a href="#categories" class="w3-button w3-hide-small w3-padding-large w3-hover-teal">
+            Categories
+        </a>
+        <a href="#domains" class="w3-button w3-hide-small w3-padding-large w3-hover-deep-purple">
+            Domains
+        </a>
     </div>
 </div>
-<div class="w3-container w3-padding-64">
+<div id="topics" class="w3-container w3-padding-64">
     {% for message in messages %}
     {% if message['text'] != '' %}
     <div class="alert alert-warning alert-dismissible" style="margin-top:-20px;">
@@ -47,19 +58,19 @@
 
     <table class="w3-table-all w3-centered">
         <tr class="w3-orange">
-            <th>Title</th>
-            <th>Link</th>
-            <th>Category</th>
-            <th colspan="2">Actions</th>
+            <th scope="col">Title</th>
+            <th scope="col">Link</th>
+            <th scope="col">Category</th>
+            <th scope="col" colspan="2">Actions</th>
         </tr>
         {% for topic in topics %}
         <tr>
             <form action="/edit_topic" method="POST" target="dummyframe">
-                <td><input class="w3-input" type="text" maxlength="200" name="Title" placeholder="Enter title" required
+                <td data-label="Title"><input class="w3-input" type="text" maxlength="200" name="Title" placeholder="Enter title" required
                            value="{{topic['title']}}"></td>
-                <td><input class="w3-input" type="text" maxlength="200" name="URL" placeholder="Enter URL link" required
+                <td data-label="URL"><input class="w3-input" type="text" maxlength="200" name="URL" placeholder="Enter URL link" required
                            value="{{topic['link']}}"></td>
-                <td>
+                <td data-label="Category">
                     <select name="Categories" class="w3-select">
                         {% for category in categories %}
                         {% if category['id'] == topic['category_id'] %}
@@ -70,32 +81,33 @@
                         {% endfor %}
                     </select>
                 </td>
-                <td>
+                <td data-label="Submit">
                     <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
                             class="fa fa-save fa-lg w3-text-green"></i></button>
                 </td>
                 <input type="hidden" name="id" value="{{topic['id']}}">
             </form>
-            <td><a class="w3-button w3-medium w3-circle w3-black" data-confirm="Are you sure?" data-method="delete" id="submitLoad"
+            <td data-label="Delete"><a class="w3-button w3-medium w3-circle w3-black" data-confirm="Are you sure?" data-method="delete"
+                   id="submitLoad"
                    href="/delete_topic/{{topic['id']}}"
                    rel="nofollow"><i class="fa fa-trash fa-lg w3-text-red"></i></a>
             </td>
         </tr>
         {% endfor %}
         <tr class="w3-grey">
-            <form action="/add_topic" method="POST"  id="submitLoad">
-                <td><input class="w3-input" type="text" maxlength="200" name="Title" placeholder="Enter title" required>
+            <form action="/add_topic" method="POST" id="submitLoad">
+                <td data-label="Title"><input class="w3-input" type="text" maxlength="200" name="Title" placeholder="Enter title" required>
                 </td>
-                <td><input class="w3-input" type="text" maxlength="200" name="URL" placeholder="Enter URL link"
+                <td data-label="URL"><input class="w3-input" type="text" maxlength="200" name="URL" placeholder="Enter URL link"
                            required></td>
-                <td>
+                <td data-label="Ccategory">
                     <select name="Categories" class="w3-select">
                         {% for category in categories %}
                         <option value="{{category['id']}}">{{category['title']}}</option>
                         {% endfor %}
                     </select>
                 </td>
-                <td colspan="2">
+                <td data-label="Submit" colspan="2">
                     <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
                             class="fa fa-plus fa-lg w3-text-green"></i></button>
                 </td>
@@ -105,32 +117,33 @@
 </div>
 
 
-<div class="w3-container w3-padding-64">
+<div id="categories" class="w3-container w3-padding-64">
     <div class="w3-center">
-        <h2>Categories</h2>
+        <h2> Categories</h2>
     </div>
     <div class="loader"></div>
     <table class="w3-table-all w3-centered">
         <tr class="w3-teal">
-            <th>Title</th>
-            <th>Icon</th>
-            <th colspan="2">Actions</th>
+            <th scope="col">Title</th>
+            <th scope="col">Icon</th>
+            <th scope="col" colspan="2">Actions</th>
         </tr>
         {% for category in categories %}
         <tr>
             <form action="/edit_category" method="POST" target="dummyframe">
-                <td><input class="w3-input" type="text" maxlength="200" name="Title" placeholder="Enter title" required
+                <td data-label="Title"><input class="w3-input" type="text" maxlength="200" name="Title" placeholder="Enter title" required
                            value="{{category['title']}}"></td>
-                <td><input class="w3-input" type="text" maxlength="200" name="Icon" placeholder="Enter icon class"
+                <td data-label="Icon"><input class="w3-input" type="text" maxlength="200" name="Icon" placeholder="Enter icon class"
                            required
                            value="{{category['icon']}}" title="Use font-awesome or mfizz"></td>
-                <td>
+                <td data-label="Submit">
                     <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
                             class="fa fa-save fa-lg w3-text-green"></i></button>
                 </td>
                 <input type="hidden" name="id" value="{{category['id']}}">
             </form>
-            <td><a class="w3-button w3-medium w3-circle w3-black" data-confirm="Are you sure?" data-method="delete" id="submitLoad"
+            <td data-label="Delete"><a class="w3-button w3-medium w3-circle w3-black" data-confirm="Are you sure?" data-method="delete"
+                   id="submitLoad"
                    href="/delete_category/{{category['id']}}"
                    rel="nofollow"><i class="fa fa-trash fa-lg w3-text-red"></i></a>
             </td>
@@ -138,13 +151,13 @@
         {% endfor %}
         <tr class="w3-grey">
             <form action="/add_category" method="POST" id="submitLoad">
-                <td><input class="w3-input" type="text" maxlength="200" name="Title"
+                <td data-label="Title"><input class="w3-input" type="text" maxlength="200" name="Title"
                            placeholder="Enter title to create new category"
                            required></td>
-                <td><input class="w3-input" type="text" maxlength="200" name="Icon" placeholder="Enter icon class"
+                <td data-label="Icon"><input class="w3-input" type="text" maxlength="200" name="Icon" placeholder="Enter icon class"
                            required
                            title="Use font-awesome or mfizz"></td>
-                <td colspan="2">
+                <td data-label="Submit" colspan="2">
                     <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
                             class="fa fa-plus fa-lg w3-text-green"></i></button>
                 </td>
@@ -153,28 +166,29 @@
     </table>
 </div>
 
-<div class="w3-container w3-padding-64">
+<div id="domains" class="w3-container w3-padding-64">
     <div class="w3-center">
         <h2>Domains whitelist</h2>
     </div>
     <div class="loader"></div>
     <table class="w3-table-all w3-centered">
-        <tr class="w3-teal">
-            <th>Domain</th>
-            <th colspan="2">Actions</th>
+        <tr class="w3-deep-purple">
+            <th scope="col">Domain</th>
+            <th scope="col" colspan="2">Actions</th>
         </tr>
         {% for domain in domains %}
         <tr>
             <form action="/edit_domain" method="POST" target="dummyframe">
-                <td><input class="w3-input" type="text" maxlength="200" name="NewDomain" placeholder="Enter domain name"
+                <td data-label="Domain"><input class="w3-input" type="text" maxlength="200" name="NewDomain" placeholder="Enter domain name"
                            required value="{{domain}}"></td>
-                <td>
+                <td data-label="Submit">
                     <input type="hidden" name="OldDomain" value="{{domain}}">
                     <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
                             class="fa fa-save fa-lg w3-text-green"></i></button>
                 </td>
             </form>
-            <td><a class="w3-button w3-medium w3-circle w3-black" data-confirm="Are you sure?" data-method="delete" id="submitLoad"
+            <td data-label="Delete"><a class="w3-button w3-medium w3-circle w3-black" data-confirm="Are you sure?" data-method="delete"
+                   id="submitLoad"
                    href="/delete_domain/{{domain}}"
                    rel="nofollow"><i class="fa fa-trash fa-lg w3-text-red"></i></a>
             </td>
@@ -182,9 +196,9 @@
         {% endfor %}
         <tr class="w3-grey">
             <form action="/add_domain" method="POST" id="submitLoad">
-                <td><input class="w3-input" type="text" maxlength="200" name="Domain"
+                <td data-label="Domain"><input class="w3-input" type="text" maxlength="200" name="Domain"
                            placeholder="Enter name to create new domain" required></td>
-                <td colspan="2">
+                <td data-label="Submit" colspan="2">
                     <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
                             class="fa fa-plus fa-lg w3-text-green"></i></button>
                 </td>

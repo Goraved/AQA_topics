@@ -50,6 +50,33 @@ $('a[href*="#"]')
     }
   });
 
+$('a.track').on('click', function(e){
+var currentLink = $(this)[0].href;
+  ga('send', 'event', {
+    eventCategory: 'Outbound Link',
+    eventAction: 'click',
+    eventLabel: currentLink,
+    transport: 'beacon'
+  });
+});
+
+ document.getElementById("create").onsubmit =  function(){
+    document.getElementById('loading').style.display = "block";
+    document.getElementById("scrollBtn").click();
+  };
+   document.getElementById("submitLoad").onsubmit =  function(){
+    document.getElementById('loading').style.display = "block";
+    document.getElementById("scrollBtn").click();
+  };
+ document.getElementById("submitLoad").onclick =  function(){
+    document.getElementById('loading').style.display = "block";
+    document.getElementById("scrollBtn").click();
+  };
+
+// end
+  });
+
+
   // Get the modal
 var modal = document.getElementById('myModal');
 var categories = document.getElementById('id01');
@@ -88,60 +115,4 @@ $(window).click(function() {
 
 
 
-$('a.track').on('click', function(e){
-var currentLink = $(this)[0].href;
-  ga('send', 'event', {
-    eventCategory: 'Outbound Link',
-    eventAction: 'click',
-    eventLabel: currentLink,
-    transport: 'beacon'
-  });
-});
 
- document.getElementById("create").onsubmit =  function(){
-    document.getElementById('loading').style.display = "block";
-    document.getElementById("scrollBtn").click();
-  };
-   document.getElementById("submitLoad").onsubmit =  function(){
-    document.getElementById('loading').style.display = "block";
-    document.getElementById("scrollBtn").click();
-  };
- document.getElementById("submitLoad").onclick =  function(){
-    document.getElementById('loading').style.display = "block";
-    document.getElementById("scrollBtn").click();
-  };
-
-// end
-  });
-
-var controller = new ScrollMagic.Controller();
-
-	// build tween
-	var tween = TweenMax.from("#animate", 0.5, {autoAlpha: 0, scale: 0.7});
-
-	// build scene
-	var scene = new ScrollMagic.Scene({triggerElement: "a#top", duration: 200, triggerHook: "onLeave"})
-					.setTween(tween)
-					.addIndicators() // add indicators (requires plugin)
-					.addTo(controller);
-
-	// change behaviour of controller to animate scroll instead of jump
-	controller.scrollTo(function (newpos) {
-		TweenMax.to(window, 0.5, {scrollTo: {y: newpos}});
-	});
-
-	//  bind scroll to anchor links
-	$(document).on("click", "a[href^='#']", function (e) {
-		var id = $(this).attr("href");
-		if ($(id).length > 0) {
-			e.preventDefault();
-
-			// trigger scroll
-			controller.scrollTo(id);
-
-				// if supported by the browser we can even update the URL.
-			if (window.history && window.history.pushState) {
-				history.pushState("", document.title, id);
-			}
-		}
-	});

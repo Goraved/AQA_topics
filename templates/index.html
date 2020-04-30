@@ -14,6 +14,8 @@ ga('create', 'UA-119547534-1', 'auto');
 ga('send', 'pageview');
 
 
+
+
     </script>
 </head>
 <meta name="description" content="Become a better automation quality assurance engineer right now!"/>
@@ -47,16 +49,17 @@ ga('send', 'pageview');
         <div class="w3-container">
             <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
             <form class="move">
-                    <h2>Categories</h2>
-                    {% for category in categories %}
-                    {% if category['id'] == 4 %}
-                    {% continue %}
-                    {% endif %}
-                    {% if category['count'] == 0 %}
-                    {% continue %}
-                    {% endif %}
-                    <p><a href="#{{category['id']}}" onclick="document.getElementById('id01').style.display='none'">{{category['title']}}</a></p>
-                    {% endfor %}
+                <h2>Categories</h2>
+                {% for category in categories %}
+                {% if category['id'] == 4 %}
+                {% continue %}
+                {% endif %}
+                {% if category['count'] == 0 %}
+                {% continue %}
+                {% endif %}
+                <p><a href="#{{category['id']}}" onclick="document.getElementById('id01').style.display='none'">{{category['title']}}</a>
+                </p>
+                {% endfor %}
             </form>
         </div>
     </div>
@@ -74,7 +77,8 @@ ga('send', 'pageview');
 <!-- Navbar -->
 
 <div class="w3-top">
-    <button onclick="document.getElementById('id01').style.display='block'" id="moveTo" title="Go to top"><i class="fa fa-list-alt" aria-hidden="true"></i></button>
+    <button onclick="document.getElementById('id01').style.display='block'" id="moveTo" title="Go to top"><i
+            class="fa fa-list-alt" aria-hidden="true"></i></button>
     <a href="#top" id="scrollBtn" title="Go to top"><i class="fa fa-angle-double-up w3-large"></i></a>
     <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
         <a id="toogle"
@@ -187,7 +191,7 @@ ga('send', 'pageview');
         <div class="w3-twothird">
             <h3 class="w3-xxxlarge">{{category['title']}}</h3>
             <div>
-                <input type="checkbox" class="read-more-state" id="post-1"/>
+                <input type="checkbox" class="read-more-state" id="post-{{category['id']}}"/>
                 <ul class="read-more-wrap">
                     {% for topic in topics %}
                     {% if topic['category_id'] == category['id'] %}
@@ -206,7 +210,7 @@ ga('send', 'pageview');
                     {% endfor %}
                 </ul>
                 {% if category['count'] > 10 %}
-                <label for="post-1" class="read-more-trigger"></label>
+                <label for="post-{{category['id']}}" class="read-more-trigger"></label>
                 {% endif %}
             </div>
         </div>
@@ -224,7 +228,7 @@ ga('send', 'pageview');
         </div>
         <h3 class="w3-xxxlarge">{{category['title']}}</h3>
         <div>
-            <input type="checkbox" class="read-more-state" id="post-2"/>
+            <input type="checkbox" class="read-more-state" id="post-{{category['id']}}"/>
             <ul class="read-more-wrap">
                 {% for topic in topics %}
                 {% if topic['category_id'] == category['id'] %}
@@ -243,11 +247,10 @@ ga('send', 'pageview');
                 {% endfor %}
             </ul>
             {% if category['count'] > 10 %}
-            <label for="post-2" class="read-more-trigger"></label>
+            <label for="post-{{category['id']}}" class="read-more-trigger"></label>
             {% endif %}
         </div>
     </div>
-</div>
 </div>
 {% endif %}
 {% endfor %}

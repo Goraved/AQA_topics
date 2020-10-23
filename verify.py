@@ -1,14 +1,16 @@
 from functools import wraps
-from data import get_user
+
 from flask import request, Response
 
+from models.user import get_user
 
-def check_auth(username, password):
+
+def check_auth(username: str, password: str) -> bool:
     """This function is called to check if a username /
     password combination is valid.
     """
     user = get_user(username)
-    return str(username) == user['username'] and str(password) == user['pass']
+    return str(username) == user.username and str(password) == user.password
 
 
 def authenticate():
@@ -19,12 +21,12 @@ def authenticate():
         {'WWW-Authenticate': 'Basic realm="Login Required"'})
 
 
-def requires_auth(f):
-    @wraps(f)
+def requires_auth(func):
+    @wraps(func)
     def decorated(*args, **kwargs):
         auth = request.authorization
         if not auth or not check_auth(str(auth.username), str(auth.password)):
             return authenticate()
-        return f(*args, **kwargs)
+        return func(*args, **kwargs)
 
     return decorated

@@ -91,8 +91,8 @@ var trackOutboundLink = function(url, new_window) {
             <ul>
                 {% for result in results %}
                 <div class="w3-row-padding w3-light-grey w3-padding-16 w3-container w3-margin">
-                    <li class="w3-padding-5"><a class="track w3-large" href={{result['link']}} target="_blank">[{{result['category']}}]:
-                        {{result['topic']}}</a>
+                    <li class="w3-padding-5"><a class="track w3-large" href={{result['link']}} target="_blank">[{{result.category_name}}]:
+                        {{result.name}}</a>
                     </li>
                 </div>
                 {% endfor %}

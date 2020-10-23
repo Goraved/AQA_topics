@@ -67,16 +67,16 @@
         <tr>
             <form action="/edit_topic" method="POST" target="dummyframe">
                 <td data-label="Title"><input class="w3-input" type="text" maxlength="200" name="Title" placeholder="Enter title" required
-                           value="{{topic['title']}}"></td>
+                           value="{{topic.name}}"></td>
                 <td data-label="URL"><input class="w3-input" type="text" maxlength="200" name="URL" placeholder="Enter URL link" required
-                           value="{{topic['link']}}"></td>
+                           value="{{topic.link}}"></td>
                 <td data-label="Category">
                     <select name="Categories" class="w3-select">
                         {% for category in categories %}
-                        {% if category['id'] == topic['category_id'] %}
-                        <option value="{{category['id']}}" selected>{{category['title']}}</option>
+                        {% if category.category_id == topic.category_id %}
+                        <option value="{{category.category_id}}" selected>{{category.name}}</option>
                         {% else %}
-                        <option value="{{category['id']}}">{{category['title']}}</option>
+                        <option value="{{category.category_id}}">{{category.name}}</option>
                         {% endif %}
                         {% endfor %}
                     </select>
@@ -85,11 +85,11 @@
                     <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
                             class="fa fa-save fa-lg w3-text-green"></i></button>
                 </td>
-                <input type="hidden" name="id" value="{{topic['id']}}">
+                <input type="hidden" name="id" value="{{topic.topic_id}}">
             </form>
             <td data-label="Delete"><a class="w3-button w3-medium w3-circle w3-black" data-confirm="Are you sure?" data-method="delete"
                    id="submitLoad"
-                   href="/delete_topic/{{topic['id']}}"
+                   href="/delete_topic/{{topic.topic_id}}"
                    rel="nofollow"><i class="fa fa-trash fa-lg w3-text-red"></i></a>
             </td>
         </tr>
@@ -103,7 +103,7 @@
                 <td data-label="Ccategory">
                     <select name="Categories" class="w3-select">
                         {% for category in categories %}
-                        <option value="{{category['id']}}">{{category['title']}}</option>
+                        <option value="{{category.category_id}}">{{category.name}}</option>
                         {% endfor %}
                     </select>
                 </td>
@@ -132,19 +132,19 @@
         <tr>
             <form action="/edit_category" method="POST" target="dummyframe">
                 <td data-label="Title"><input class="w3-input" type="text" maxlength="200" name="Title" placeholder="Enter title" required
-                           value="{{category['title']}}"></td>
+                           value="{{category.name}}"></td>
                 <td data-label="Icon"><input class="w3-input" type="text" maxlength="200" name="Icon" placeholder="Enter icon class"
                            required
-                           value="{{category['icon']}}" title="Use font-awesome or mfizz"></td>
+                           value="{{category.icon}}" title="Use font-awesome or mfizz"></td>
                 <td data-label="Submit">
                     <button class="w3-button w3-medium w3-circle w3-black" type="submit"><i
                             class="fa fa-save fa-lg w3-text-green"></i></button>
                 </td>
-                <input type="hidden" name="id" value="{{category['id']}}">
+                <input type="hidden" name="id" value="{{category.category_id}}">
             </form>
             <td data-label="Delete"><a class="w3-button w3-medium w3-circle w3-black" data-confirm="Are you sure?" data-method="delete"
                    id="submitLoad"
-                   href="/delete_category/{{category['id']}}"
+                   href="/delete_category/{{category.category_id}}"
                    rel="nofollow"><i class="fa fa-trash fa-lg w3-text-red"></i></a>
             </td>
         </tr>

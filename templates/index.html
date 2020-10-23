@@ -16,6 +16,7 @@ ga('send', 'pageview');
 
 
 
+
     </script>
 </head>
 <meta name="description" content="Become a better automation quality assurance engineer right now!"/>
@@ -51,13 +52,13 @@ ga('send', 'pageview');
             <form class="move">
                 <h2>Categories</h2>
                 {% for category in categories %}
-                {% if category['id'] == 4 %}
+                {% if category.category_id == 4 %}
                 {% continue %}
                 {% endif %}
-                {% if category['count'] == 0 %}
+                {% if category.count == 0 %}
                 {% continue %}
                 {% endif %}
-                <p><a href="#{{category['id']}}" onclick="document.getElementById('id01').style.display='none'">{{category['title']}}</a>
+                <p><a href="#{{category.category_id}}" onclick="document.getElementById('id01').style.display='none'">{{category.name}}</a>
                 </p>
                 {% endfor %}
             </form>
@@ -96,8 +97,8 @@ ga('send', 'pageview');
             <button class="w3-button w3-hide-small w3-padding-large w3-hover-orange">Dynamic content</button>
             <div class="w3-dropdown-content w3-bar-block w3-card-4">
                 {% for link in topics %}
-                {% if link['category_id'] == 4 %}
-                <a target="_blank" href="{{link['link']}}" class="track w3-bar-item w3-button w3-hover-orange">{{link['title']}}</a>
+                {% if link.category_id == 4 %}
+                <a target="_blank" href="{{link.link}}" class="track w3-bar-item w3-button w3-hover-orange">{{link.name}}</a>
                 {% endif %}
                 {% endfor %}
             </div>
@@ -122,12 +123,10 @@ ga('send', 'pageview');
     <!-- Navbar on small screens -->
     <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
         {% for link in topics %}
-        {% if link['category_id'] == 4 %}
-        <a href="{{link['link']}}" target="_blank" class="track w3-bar-item w3-button w3-padding-large">{{link['title']}}</a>
+        {% if link.category_id == 4 %}
+        <a href="{{link.link}}" target="_blank" class="track w3-bar-item w3-button w3-padding-large">{{link.name}}</a>
         {% endif %}
         {% endfor %}
-        <a href="https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit" target="_blank"
-           class="track w3-bar-item w3-button w3-padding-large">AQA Tasks</a>
     </div>
 </div>
 <!-- Header -->
@@ -163,9 +162,9 @@ ga('send', 'pageview');
             <div class="modal-body">
                 <ul>
                     {% for topic in topics %}
-                    {% if topic['new'] == True %}
-                    <li class="w3-padding-5"><a class="w3-large track" href={{topic['link']}} target="_blank"><span
-                            style="color:grey;">[{{topic['category']}}]</span> {{topic['title']}}</a>
+                    {% if topic.is_new == True %}
+                    <li class="w3-padding-5"><a class="w3-large track" href={{topic.link}} target="_blank"><span
+                            style="color:grey;">[topic.category_name]</span> {{topic.name}}</a>
                     </li>
                     {% endif %}
                     {% endfor %}
@@ -178,76 +177,76 @@ ga('send', 'pageview');
 
 
 {% for category in categories %}
-{% if category['id'] == 4 %}
+{% if category.category_id == 4 %}
 {% continue %}
 {% endif %}
-{% if category['count'] == 0 %}
+{% if category.count == 0 %}
 {% continue %}
 {% endif %}
-{% if category['index'] % 2 == 0 %}
+{% if category.index % 2 == 0 %}
 <!-- First type -->
-<div class="w3-row-padding w3-padding-64 w3-container block-middle" id="{{category['id']}}">
+<div class="w3-row-padding w3-padding-64 w3-container block-middle" id="{{category.category_id}}">
     <div class="w3-content">
         <div class="w3-twothird">
-            <h3 class="w3-xxxlarge">{{category['title']}}</h3>
+            <h3 class="w3-xxxlarge">{{category.name}}</h3>
             <div>
-                <input type="checkbox" class="read-more-state" id="post-{{category['id']}}"/>
+                <input type="checkbox" class="read-more-state" id="post-{{category.category_id}}"/>
                 <ul class="read-more-wrap">
                     {% for topic in topics %}
-                    {% if topic['category_id'] == category['id'] %}
-                    {% if topic['index'] < 10 %}
+                    {% if topic.category_id == category.category_id %}
+                    {% if topic.index < 10 %}
                     <li class="w3-padding-5">
-                        <a class="w3-large track" href={{topic['link']}}
-                           target="_blank">{{topic['title']}}</a>
+                        <a class="w3-large track" href={{topic.link}}
+                           target="_blank">{{topic.name}}</a>
                     </li>
                     {% else %}
                     <li class="w3-padding-5 read-more-target">
-                        <a class="w3-large track" href={{topic['link']}}
-                           target="_blank">{{topic['title']}}</a>
+                        <a class="w3-large track" href={{topic.link}}
+                           target="_blank">{{topic.name}}</a>
                     </li>
                     {% endif%}
                     {% endif %}
                     {% endfor %}
                 </ul>
-                {% if category['count'] > 10 %}
-                <label for="post-{{category['id']}}" class="read-more-trigger"></label>
+                {% if category.count > 10 %}
+                <label for="post-{{category.category_id}}" class="read-more-trigger"></label>
                 {% endif %}
             </div>
         </div>
         <div class="w3-third w3-center">
-            <i class="{{category['icon']}} w3-padding-32 w3-text-red" style="font-size: 100px"></i>
+            <i class="{{category.icon}} w3-padding-32 w3-text-red" style="font-size: 100px"></i>
         </div>
     </div>
 </div>
 {% else %}
 <!-- Second type -->
-<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container block-middle" id="{{category['id']}}">
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container block-middle" id="{{category.category_id}}">
     <div class="w3-content">
         <div class="w3-third w3-center">
-            <i class="fa {{category['icon']}} w3-padding-32 w3-text-red w3-margin-right" style="font-size: 100px"></i>
+            <i class="fa {{category.icon}} w3-padding-32 w3-text-red w3-margin-right" style="font-size: 100px"></i>
         </div>
-        <h3 class="w3-xxxlarge">{{category['title']}}</h3>
+        <h3 class="w3-xxxlarge">{{category.name}}</h3>
         <div>
-            <input type="checkbox" class="read-more-state" id="post-{{category['id']}}"/>
+            <input type="checkbox" class="read-more-state" id="post-{{category.category_id}}"/>
             <ul class="read-more-wrap">
                 {% for topic in topics %}
-                {% if topic['category_id'] == category['id'] %}
-                {% if topic['index'] < 10 %}
+                {% if topic.category_id == category.category_id %}
+                {% if topic.index < 10 %}
                 <li class="w3-padding-5">
-                    <a class="w3-large track" href={{topic['link']}}
-                       target="_blank">{{topic['title']}}</a>
+                    <a class="w3-large track" href={{topic.link}}
+                       target="_blank">{{topic.name}}</a>
                 </li>
                 {% else %}
                 <li class="w3-padding-5 read-more-target">
-                    <a class="w3-large track" href={{topic['link']}}
-                       target="_blank">{{topic['title']}}</a>
+                    <a class="w3-large track" href={{topic.link}}
+                       target="_blank">{{topic.name}}</a>
                 </li>
                 {% endif%}
                 {% endif %}
                 {% endfor %}
             </ul>
-            {% if category['count'] > 10 %}
-            <label for="post-{{category['id']}}" class="read-more-trigger"></label>
+            {% if category.count > 10 %}
+            <label for="post-{{category.category_id}}" class="read-more-trigger"></label>
             {% endif %}
         </div>
     </div>
@@ -269,7 +268,7 @@ ga('send', 'pageview');
             <label>Choose category</label>
             <select name="Categories" class="w3-select w3-margin-bottom" style="color:black">
                 {% for category in categories %}
-                <option value="{{category['id']}}" style="color:black">{{category['title']}}</option>
+                <option value="{{category.category_id}}" style="color:black">{{category.name}}</option>
                 {% endfor %}
             </select>
             <p>If you wanna add a new category, you can <a class="track"

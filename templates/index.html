@@ -17,6 +17,7 @@ ga('send', 'pageview');
 
 
 
+
     </script>
 </head>
 <meta name="description" content="Become a better automation quality assurance engineer right now!"/>
@@ -103,9 +104,6 @@ ga('send', 'pageview');
                 {% endfor %}
             </div>
         </div>
-        <a href="https://docs.google.com/document/d/1NOUtWpXB6oGqi8QWtU-QDsM6-AxvBHNMwS9URKrcd38/edit"
-           class="track w3-bar-item w3-hide-small w3-button w3-padding-large  w3-hover-orange" target="_blank">AQA
-            Tasks</a>
 
         <!-- Search -->
         <form action="/search" method="GET" class="w3-hide-small">
@@ -164,7 +162,7 @@ ga('send', 'pageview');
                     {% for topic in topics %}
                     {% if topic.is_new == True %}
                     <li class="w3-padding-5"><a class="w3-large track" href={{topic.link}} target="_blank"><span
-                            style="color:grey;">[topic.category_name]</span> {{topic.name}}</a>
+                            style="color:grey;">[{{topic.category_name}}]</span> {{topic.name}}</a>
                     </li>
                     {% endif %}
                     {% endfor %}

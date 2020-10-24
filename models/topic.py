@@ -39,23 +39,21 @@ class Topic:
         async_values = ioloop.run_until_complete(asyncio.gather(*[get_topics()]))
         topics = async_values[0]
         for topic in topics:
-            if self.name != topic.name and self.link != topic.link:
-                continue
-            else:
+            if self.name.lower() == topic.name.lower() or self.link.lower() == topic.link.lower():
                 return f'Topic already added with title "{topic.name}"'
         try:
             if 'dou' in self.link:
                 headers = {
-                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) '
-                                  'Chrome/63.0.3239.132 Safari/537.36 OPR/50.0.2762.67',
+                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 '
+                                  '(KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36 OPR/50.0.2762.67',
                     'Referer': 'https://dou.ua',
                     'X-Requested-With': 'XMLHttpRequest'
                 }
                 response = requests.get(self.link, headers=headers)
             else:
                 response = requests.get(self.link)
-        except Exception as e:
-            return f'Bad url - {e.args[0]}'
+        except Exception as exception:
+            return f'Bad url - {exception.args[0]}'
         if str(response.status_code)[0] == '2' or check_link_in_whitelist(self.link):
             query('Insert into topics (category_id, title, link, added_date) values ({},"{}","{}","{}")'
                   .format(self.category_id, reformat_text(self.name), reformat_text(self.link), date.today()))

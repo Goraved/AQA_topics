@@ -67,6 +67,7 @@ def search():
 
 
 @app.route('/edit_topic', methods=['POST'])
+@requires_auth
 def edit_topic():
     title = request.form['Title']
     link = request.form['URL']
@@ -77,6 +78,7 @@ def edit_topic():
 
 
 @app.route('/delete_topic/<topic_id>')
+@requires_auth
 def delete_topic(topic_id):
     Topic.remove_topic(int(topic_id))
     return redirect("/god")
@@ -94,6 +96,7 @@ def add_topic():
 
 # CATEGORIES
 @app.route('/edit_category', methods=['POST'])
+@requires_auth
 def edit_category():
     title = request.form['Title']
     category_id = request.form['id']
@@ -103,12 +106,14 @@ def edit_category():
 
 
 @app.route('/delete_category/<category_id>')
+@requires_auth
 def delete_category(category_id):
     Category.remove_category(int(category_id))
     return redirect("/god")
 
 
 @app.route('/add_category', methods=['POST'])
+@requires_auth
 def add_category():
     title = request.form['Title']
     icon = request.form['Icon']
@@ -118,6 +123,7 @@ def add_category():
 
 # DOMAINS
 @app.route('/edit_domain', methods=['POST'])
+@requires_auth
 def edit_domain():
     old_domain = request.form['OldDomain']
     new_domain = request.form['NewDomain']
@@ -126,12 +132,14 @@ def edit_domain():
 
 
 @app.route('/delete_domain/<domain>')
+@requires_auth
 def delete_domain(domain):
     Domain(name=domain).remove_domain()
     return redirect("/god")
 
 
 @app.route('/add_domain', methods=['POST'])
+@requires_auth
 def add_domain():
     domain = request.form['Domain']
     Domain(name=domain).create_domain()

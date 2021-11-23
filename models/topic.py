@@ -30,7 +30,7 @@ class Topic:
 
     @staticmethod
     def check_if_topic_is_new(topic_date: date) -> bool:
-        return date.today() - topic_date < timedelta(days=7)
+        return date.today() - topic_date < timedelta(days=30)
 
     def create_topic(self):
         # Async gathering of data

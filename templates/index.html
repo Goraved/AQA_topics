@@ -1,45 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<title>AQA Topics</title>
-<head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119547534-1"></script>
-    <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-119547534-1', 'auto');
-ga('send', 'pageview');
-</script>
-</head>
-<meta name="description" content="Become a better automation quality assurance engineer right now!"/>
-<meta property="og:title" content="AQA Topics"/>
-<meta property="og:description" content="Become a better automation quality assurance engineer right now!"/>
-<meta property="og:image"
-      content="http://worldnews.easybranches.com/uploads/news/2017/11/why-marketing-automation-is-the-future-of-digital-for-brands.jpg"/>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/font-mfizz.css') }}">
-{% for version in versions %}
-<link rel="stylesheet" href="static/css/main.css?version={{version['id']}}">
-{% endfor %}
-<link rel="shortcut icon" href="{{ url_for('static', filename='images/icons/favicon.ico') }}">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-{% for version in versions %}
-<script src="static/js/main.js?version={{version['id']}}"></script>
-{% endfor %}
-
-
-<body>
-
+{% extends 'template.html' %}
+{% block title %} AQA Topics {% endblock %}
+{% block content %}
 <div id="id01" class="w3-modal cats">
     <div id="id02" class="w3-modal-content cats1">
         <div class="w3-container">
@@ -154,7 +115,7 @@ ga('send', 'pageview');
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
-                <h2 class="w3-large">Topics added by last 7 days</h2>
+                <h2 class="w3-large">Topics added by last 30 days</h2>
             </div>
             <div class="modal-body">
                 <ul>
@@ -275,9 +236,5 @@ ga('send', 'pageview');
         </form>
     </div>
 </div>
-<!-- Footer -->
-<footer class="w3-container w3-padding-16 w3-center w3-opacity">
-    <p><a href="https://github.com/Goraved" class="track" target="_blank">Goraved 2018</a></p>
-</footer>
-</body>
-</html>
+
+{% endblock %}

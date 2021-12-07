@@ -12,7 +12,7 @@ itsdangerous
 lxml
 mysqlclient
 pip
-pylint-fail-under
+pylint
 requests
 setuptools
 urllib3

@@ -1,2 +1,2 @@
-web: gunicorn app:app --timeout 360
+web: gunicorn index:app --timeout 360
 k

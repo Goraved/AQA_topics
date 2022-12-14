@@ -10,7 +10,7 @@ gunicorn
 idna
 itsdangerous
 lxml
-mysqlclient
+mysql-connector
 pip
 pylint
 requests

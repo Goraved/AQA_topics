@@ -18,19 +18,20 @@ class Category:
 
     def update_category(self):
         query(f"Update categories set title='{reformat_text(self.name)}', icon='{self.icon}'"
-              f" where id = {self.category_id}")
+              f" WHERE id = {self.category_id}")
 
     @staticmethod
     def remove_category(category_id: int):
-        query(f"Delete from categories where id = {category_id}")
+        query(f"Delete from categories WHERE id = {category_id}")
 
 
 async def get_categories() -> List[Category]:
     await asyncio.sleep(0)
     categories = []
-    cur = query("Select * from categories")
+    cur = query("SELECT * from categories")
     for row in cur.fetchall():
         categories.append(Category(name=row[1], category_id=row[0], icon=row[3]))
+    cur.close()
     return categories
 
 

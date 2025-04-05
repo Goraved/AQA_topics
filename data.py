@@ -1,15 +1,17 @@
-import asyncio
 import os
 from datetime import date
 
 from mysql import connector
-from mysql.connector import MySQLConnection
 from mysql.connector.cursor import MySQLCursor
 
-DB: MySQLConnection = None
-
+# Global database connection
+DB = None
 
 def db_connection():
+    """
+    Establishes a connection to the MySQL database using credentials from environment variables.
+    Sets the global DB variable to the connection object.
+    """
     global DB
     DB = connector.connect(
         user=os.environ["DB_USER"],
@@ -20,14 +22,27 @@ def db_connection():
     )
     DB.ping(True)
 
-
 def close_connection():
+    """
+    Closes the MySQL database connection if it is open.
+    Sets the global DB variable to None.
+    """
     global DB
     if DB:
         DB.close()
 
-
 def query(sql: str) -> MySQLCursor:
+    """
+    Executes a given SQL query on the MySQL database.
+    Reconnects to the database if the connection is lost.
+
+    Args:
+        sql (str): The SQL query to be executed.
+
+    Returns:
+        MySQLCursor: The cursor object containing the results of the query.
+    """
+    global DB
     if not DB:
         db_connection()
 
@@ -43,13 +58,28 @@ def query(sql: str) -> MySQLCursor:
         DB.commit()
     return cursor
 
-
 def reformat_text(text: str) -> str:
-    return str(text).lstrip().rstrip().replace("<", "").replace(">", "")
+    """
+    Reformats a given text by stripping leading and trailing whitespace and removing angle brackets.
 
+    Args:
+        text (str): The text to be reformatted.
+
+    Returns:
+        str: The reformatted text.
+    """
+    return str(text).strip().replace("<", "").replace(">", "")
 
 async def get_season() -> str:
-    await asyncio.sleep(0)
+    """
+    Determines the current season based on the current month.
+
+    Returns:
+        str: The current season ("winter", "spring", "summer", or "autumn").
+
+    Raises:
+        Exception: If the current month is not within the expected range.
+    """
     current_month = date.today().month
     if current_month in [12, 1, 2]:
         season = "winter"

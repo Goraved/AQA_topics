@@ -1,118 +1,127 @@
-//// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
+// Show/hide scroll button based on page position
+window.onscroll = function() {
+  scrollFunction();
+};
 
 function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        document.getElementById("scrollBtn").style.display = "block";
-    } else {
-        document.getElementById("scrollBtn").style.display = "none";
-    }
+  const scrollBtn = document.getElementById("scrollBtn");
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    scrollBtn.style.display = "block";
+  } else {
+    scrollBtn.style.display = "none";
+  }
 }
 
-// Used to toggle the menu on small screens when clicking on the menu button
+// Toggle mobile menu
 function myFunction() {
-    var x = document.getElementById("navDemo");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else {
-        x.className = x.className.replace(" w3-show", "");
-    }
+  const x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
 }
 
+// Document ready function with modern approach
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('currentYear').textContent = new Date().getFullYear();
+  // Smooth scrolling for internal links
+  document.querySelectorAll('a[href*="#"]').forEach(anchor => {
+    if (!anchor.getAttribute('href').startsWith('#') || anchor.getAttribute('href') === '#0') return;
 
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
 
-$(document).ready(function(){
-// Select all links with hashes
-$('a[href*="#"]')
-  // Remove links that don't actually link to anything
-  .not('[href="#"]')
-  .not('[href="#0"]')
-  .click(function(event) {
-    if (
-      location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
-      &&
-      location.hostname == this.hostname
-    ) {
-      // Figure out element to scroll to
-      var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-      // Does a scroll target exist?
-      if (target.length) {
-        // Only prevent default if animation is actually gonna happen
-        event.preventDefault();
-        $('html, body').animate({
-          scrollTop: target.offset().top
-        }, 1000, function() {
-          // Callback after animation
-          var $target = $(target);
+      if (targetElement) {
+        e.preventDefault();
+        window.scrollTo({
+          top: targetElement.offsetTop,
+          behavior: 'smooth'
         });
       }
-    }
+    });
   });
 
-$('a.track').on('click', function(e){
-var currentLink = $(this)[0].href;
-  ga('send', 'event', {
-    eventCategory: 'Outbound Link',
-    eventAction: 'click',
-    eventLabel: currentLink,
-    transport: 'beacon'
+  // Track outbound links
+  document.querySelectorAll('a.track').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const currentLink = this.href;
+      ga('send', 'event', {
+        eventCategory: 'Outbound Link',
+        eventAction: 'click',
+        eventLabel: currentLink,
+        transport: 'beacon'
+      });
+    });
   });
+
+  // Show loading indicator when forms are submitted
+  const createForm = document.getElementById("create");
+  if (createForm) {
+    createForm.addEventListener('submit', function() {
+      document.getElementById('loading').style.display = "block";
+      document.getElementById("scrollBtn").click();
+    });
+  }
+
+  const submitLoadForm = document.getElementById("submitLoad");
+  if (submitLoadForm) {
+    submitLoadForm.addEventListener('submit', function() {
+      document.getElementById('loading').style.display = "block";
+      document.getElementById("scrollBtn").click();
+    });
+
+    submitLoadForm.addEventListener('click', function() {
+      document.getElementById('loading').style.display = "block";
+      document.getElementById("scrollBtn").click();
+    });
+  }
 });
 
- document.getElementById("create").onsubmit =  function(){
-    document.getElementById('loading').style.display = "block";
-    document.getElementById("scrollBtn").click();
-  };
-   document.getElementById("submitLoad").onsubmit =  function(){
-    document.getElementById('loading').style.display = "block";
-    document.getElementById("scrollBtn").click();
-  };
- document.getElementById("submitLoad").onclick =  function(){
-    document.getElementById('loading').style.display = "block";
-    document.getElementById("scrollBtn").click();
-  };
+// Initialize modal functionality when window loads
+window.addEventListener('load', function() {
+  // Modal elements
+  const modal = document.getElementById('myModal');
+  const categories = document.getElementById('id01');
+  const btn = document.getElementById("myBtn");
+  const span = document.querySelector(".close");
+  const toogleBtn = document.getElementById('toogle');
 
-// end
+  // Open modal when button is clicked
+  if (btn) {
+    btn.addEventListener('click', function() {
+      modal.style.display = "block";
+    });
+  }
+
+  // Close modal when X is clicked
+  if (span) {
+    span.addEventListener('click', function() {
+      modal.style.display = "none";
+    });
+  }
+
+  // Close modals when clicking outside
+  window.addEventListener('click', function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+    if (event.target == categories) {
+      categories.style.display = "none";
+    }
+
+    // Close mobile navigation when clicking outside
+    const navDemo = document.getElementById("navDemo");
+    if (navDemo && navDemo.className.indexOf("w3-show") !== -1) {
+      navDemo.className = navDemo.className.replace(" w3-show", "");
+    }
   });
 
-window.onload = function(){
-      // Get the modal
-    var modal = document.getElementById('myModal');
-    var categories = document.getElementById('id01');
-    // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal || event.target == categories) {
-            modal.style.display = "none";
-            categories.style.display = "none";
-        }
-    }
-
-    $('#toogle').click(function(event){
-        event.stopPropagation();
+  // Prevent navigation menu from closing when toggle button is clicked
+  if (toogleBtn) {
+    toogleBtn.addEventListener('click', function(event) {
+      event.stopPropagation();
     });
-
-    $(window).click(function() {
-        var x = document.getElementById("navDemo");
-        x.className = x.className.replace(" w3-show", "");
-    });
-
-}
-
-
+  }
+});

@@ -1,49 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Become a better automation quality assurance engineer right now!" name="description"/>
+    <meta content="AQA Topics" property="og:title"/>
+    <meta content="Become a better automation quality assurance engineer right now!" property="og:description"/>
+    <meta content="http://worldnews.easybranches.com/uploads/news/2017/11/why-marketing-automation-is-the-future-of-digital-for-brands.jpg"
+          property="og:image"/>
+
+    <!-- Preload critical fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119547534-1"></script>
     <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-119547534-1', 'auto');
-ga('send', 'pageview');
-
-
-
-
-
+        ga('create', 'UA-119547534-1', 'auto');
+        ga('send', 'pageview');
     </script>
+
+    <!-- CSS Libraries -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/font-mfizz.css') }}" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;500;600;700;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    {% for version in versions %}
+    <link href="static/css/main.css?version={{version['id']}}" rel="stylesheet">
+    {% endfor %}
+
+    <!-- Favicon -->
+    <link href="{{ url_for('static', filename='images/icons/favicon.ico') }}" rel="shortcut icon">
+
+    <title>{% block title %}AQA Topics{% endblock %}</title>
 </head>
-<meta name="description" content="Become a better automation quality assurance engineer right now!"/>
-<meta property="og:title" content="AQA Topics"/>
-<meta property="og:description" content="Become a better automation quality assurance engineer right now!"/>
-<meta property="og:image"
-      content="http://worldnews.easybranches.com/uploads/news/2017/11/why-marketing-automation-is-the-future-of-digital-for-brands.jpg"/>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/font-mfizz.css') }}">
-{% for version in versions %}
-<link rel="stylesheet" href="static/css/main.css?version={{version['id']}}">
-{% endfor %}
-<link rel="shortcut icon" href="{{ url_for('static', filename='images/icons/favicon.ico') }}">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
+{% block content %}
+{% endblock %}
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-16 w3-center w3-opacity">
+    <p><a class="track" href="https://github.com/Goraved" target="_blank">Goraved 2018-<span
+            id="currentYear"></span></a></p>
+</footer>
+
+<!-- JavaScript Libraries -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom JavaScript -->
 {% for version in versions %}
 <script src="static/js/main.js?version={{version['id']}}"></script>
 {% endfor %}
-{% block content %}
-{% endblock %}
-<!-- Footer -->
-<footer class="w3-container w3-padding-16 w3-center w3-opacity">
-    <p><a href="https://github.com/Goraved" class="track" target="_blank">Goraved 2018</a></p>
-</footer>
+</body>
 </html>

@@ -1,53 +1,7 @@
 {% extends 'template.html' %}
 {% block title %} AQA Topics | Search results for - {{requests[0]['text']}} {% endblock %}
 {% block content %}
-
-<head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119547534-1"></script>
-    <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-119547534-1');
-
-var trackOutboundLink = function(url, new_window) {
-  ga('send', 'event', 'outbound', 'click', url, {'hitCallback':
-    function () {
-      if (!new_window) {
-        document.location = url;
-      }
-    }
-  });
-  if (new_window){
-    window.open(url);
-  }
-}
-
-
-    </script>
-</head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/font-mfizz.css') }}">
-{% for version in versions %}
-<link rel="stylesheet" href="static/css/main.css?version={{version['id']}}">
-{% endfor %}
-<link rel="shortcut icon" href="{{ url_for('static', filename='images/icons/favicon.ico') }}">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-{% for version in versions %}
-<script src="static/js/main.js?version={{version['id']}}"></script>
-{% endfor %}
-<body>
 <!-- Navbar -->
-
 <div class="w3-top">
     <a href="#top" id="scrollBtn" title="Go to top"><i class="fa fa-angle-double-up w3-large"></i></a>
     <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
@@ -59,48 +13,54 @@ var trackOutboundLink = function(url, new_window) {
         {% for host in hosts %}
         <form action="{{host}}search" method="GET" class="w3-hide-small">
             <input value="{{request['text']}}"
-                   class="w3-bar-item w3-input w3-right w3-hide-small  w3-large w3-padding-large w3-animate-input"
-                   placeholder="Search.." style="width: 18%; max-width: 39%;" type="text" required name="search">
+                   class="w3-bar-item w3-input w3-right w3-hide-small w3-large w3-padding-large w3-animate-input search-input"
+                   name="search" placeholder="Search..." required type="text">
             <input type="submit" style="display:none;">
         </form>
         <form action="{{host}}search" method="GET" class="w3-hide-large">
             <input value="{{request['text']}}"
-                   class="w3-bar-item w3-input w3-right w3-hide-large  w3-large w3-padding-large"
-                   placeholder="Search.." style="width: 59%;" type="text" required name="search">
+                   class="w3-bar-item w3-input w3-right w3-hide-large w3-large w3-padding-large search-input-mobile"
+                   name="search" placeholder="Search..." required type="text">
             <input type="submit" style="display:none;">
         </form>
         {% endfor %}
         {% endfor %}
     </div>
 </div>
-</div>
-<!-- Header -->
-<div id="top" class="w3-container w3-teal w3-center" style="padding:128px 16px">
-    <h1 class="w3-margin w3-jumbo"><i class="fa fa-bug"></i></h1>
 
-    <div class="w3-row-padding w3-padding-32 w3-container">
+<!-- Header -->
+<div class="search-header w3-container w3-center" id="top">
+    <div class="search-icon">
+        <i class="fa fa-bug"></i>
+    </div>
+
+    <div class="search-results-container w3-container">
         <div class="w3-content">
             {% for request in requests %}
             {% if request['count'] == 0 %}
-            <h3 class="w3-center w3-xxlarge">There are no results by request "<u>{{request['text']}}</u>"
-            </h3>
+            <div class="no-results-card">
+                <h3 class="w3-center w3-xxlarge">No results found for "<span
+                        class="search-query">{{request['text']}}</span>"</h3>
+                <p class="w3-center">Try a different search term or <a class="back-link" href="/">return to home
+                    page</a></p>
+            </div>
             {% else %}
-            <h3 class="w3-white w3-center w3-xxxlarge">There are <u>{{request['count']}}</u> results by request "<u>{{request['text']}}</u>"
-            </h3>
+            <div class="results-card">
+                <h3 class="w3-center w3-xxxlarge">Found <span class="result-count">{{request['count']}}</span> results
+                    for "<span class="search-query">{{request['text']}}</span>"</h3>
 
-            <ul>
-                {% for result in results %}
-                <div class="w3-row-padding w3-light-grey w3-padding-16 w3-container w3-margin">
-                    <li class="w3-padding-5"><a class="track w3-large" href={{result['link']}} target="_blank">[{{result.category_name}}]:
-                        {{result.name}}</a>
-                    </li>
+                <div class="results-list">
+                    {% for result in results %}
+                    <div class="result-item">
+                        <div class="category-tag">[{{result.category_name}}]</div>
+                        <a class="track result-link" href={{result['link']}} target="_blank">{{result.name}}</a>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </ul>
+            </div>
             {% endif %}
             {% endfor %}
         </div>
     </div>
 </div>
-</body>
 {% endblock %}
